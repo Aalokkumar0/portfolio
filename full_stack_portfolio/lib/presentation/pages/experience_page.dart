@@ -1,65 +1,35 @@
 import 'package:flutter/material.dart';
 import '../layouts/responsive_layout.dart';
+import '../widgets/section_header.dart';
+import '../widgets/animated_section.dart';
 
 class ExperiencePage extends StatelessWidget {
   const ExperiencePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final isDesktop = ResponsiveLayout.isDesktop(context);
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: isDesktop ? 100 : 20,
+        horizontal: isDesktop ? 100 : 24,
         vertical: 120,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(width: 30, height: 2, color: theme.colorScheme.primary),
-              const SizedBox(width: 15),
-              Text(
-                'MY JOURNEY',
-                style: TextStyle(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2,
-                  fontSize: 14,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 25),
-          const Text(
-            'EXPERIENCE',
-            style: TextStyle(
-              fontSize: 90,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-              letterSpacing: 2,
-              height: 1,
-            ),
-          ),
+          const SectionHeader(label: 'MY JOURNEY', title: 'EXPERIENCE'),
           const SizedBox(height: 100),
-          _buildExperienceItem(
-            context,
-            'MindMatrix.io',
-            'Android App Development (GenAI) Intern',
-            'FEB 2026 - MAY 2026',
-            'Successfully completed an industry-oriented internship focused on Android Development, Generative AI, and Cloud Technologies. Worked with Kotlin, Jetpack Compose, Firebase, Google AI Studio, and Google Cloud Labs. Contributed to UI/UX design, feature development, testing, debugging, and performance optimization. Recognized with an Excellent performance rating for overall contribution.',
-            ['KOTLIN', 'JETPACK COMPOSE', 'GENAI', 'FIREBASE', 'GOOGLE CLOUD'],
-          ),
-          const SizedBox(height: 80),
-          _buildExperienceItem(
-            context,
-            'Self-Employed / Freelance',
-            'Full Stack Developer',
-            '2024 - PRESENT',
-            'Building and deploying end-to-end applications for clients. Focused on creating scalable backends with FastAPI and high-performance mobile frontends with Flutter. Managed multiple projects from initial concept to final production deployment.',
-            ['FLUTTER', 'DART', 'FASTAPI', 'POSTGRESQL', 'DOCKER'],
+          AnimatedSection(
+            child: _buildExperienceItem(
+              context,
+              'MindMatrix.io',
+              'Android App Development (GenAI) Intern',
+              'FEB 2026 - MAY 2026',
+              'Completed an Android Development and Generative AI internship, building cloud-integrated mobile applications with Kotlin, Jetpack Compose, Firebase, and Google Cloud. Contributed across the full development lifecycle, from UI/UX design to deployment and optimization, earning an Excellent Performance Rating.',
+              ['KOTLIN', 'JETPACK COMPOSE', 'GENAI', 'FIREBASE', 'GOOGLE CLOUD'],
+              0,
+            ),
           ),
         ],
       ),
@@ -73,6 +43,7 @@ class ExperiencePage extends StatelessWidget {
     String period,
     String description,
     List<String> tags,
+    int index,
   ) {
     final theme = Theme.of(context);
     final isDesktop = ResponsiveLayout.isDesktop(context);
@@ -84,30 +55,80 @@ class ExperiencePage extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 1,
-                child: Text(
-                  period,
-                  style: TextStyle(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 18,
-                    letterSpacing: 1,
+              // Timeline indicator
+              Column(
+                children: [
+                  Container(
+                    width: 16,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        colors: [
+                          theme.colorScheme.primary,
+                          theme.colorScheme.secondary,
+                        ],
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: theme.colorScheme.primary.withValues(alpha: 0.4),
+                          blurRadius: 12,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                  Container(
+                    width: 2,
+                    height: 280,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          theme.colorScheme.primary.withValues(alpha: 0.3),
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              const SizedBox(width: 50),
+              // Content
               Expanded(
-                flex: 3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Period badge
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          colors: [
+                            theme.colorScheme.primary.withValues(alpha: 0.15),
+                            theme.colorScheme.secondary.withValues(alpha: 0.1),
+                          ],
+                        ),
+                      ),
+                      child: Text(
+                        period,
+                        style: TextStyle(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 18),
                     Text(
                       role.toUpperCase(),
                       style: const TextStyle(
-                        fontSize: 40,
+                        fontSize: 36,
                         fontWeight: FontWeight.w900,
                         color: Colors.white,
-                        letterSpacing: 1.5,
+                        letterSpacing: 1,
                         height: 1.1,
                       ),
                     ),
@@ -116,25 +137,25 @@ class ExperiencePage extends StatelessWidget {
                       company,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.4),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 1,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.5,
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 28),
                     Text(
                       description,
                       style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.5),
+                        color: Colors.white.withValues(alpha: 0.45),
                         height: 1.8,
-                        fontSize: 17,
+                        fontSize: 16,
                       ),
                     ),
-                    const SizedBox(height: 35),
+                    const SizedBox(height: 30),
                     Wrap(
-                      spacing: 12,
-                      runSpacing: 12,
-                      children: tags.map((tag) => _buildTag(tag)).toList(),
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: tags.map((tag) => _buildTag(tag, theme)).toList(),
                     ),
                   ],
                 ),
@@ -145,23 +166,59 @@ class ExperiencePage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                period,
-                style: TextStyle(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 14,
-                  letterSpacing: 1,
-                ),
+              Row(
+                children: [
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        colors: [
+                          theme.colorScheme.primary,
+                          theme.colorScheme.secondary,
+                        ],
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: theme.colorScheme.primary.withValues(alpha: 0.3),
+                          blurRadius: 8,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        colors: [
+                          theme.colorScheme.primary.withValues(alpha: 0.15),
+                          theme.colorScheme.secondary.withValues(alpha: 0.1),
+                        ],
+                      ),
+                    ),
+                    child: Text(
+                      period,
+                      style: TextStyle(
+                        color: theme.colorScheme.primary,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 18),
               Text(
                 role.toUpperCase(),
                 style: const TextStyle(
-                  fontSize: 32,
+                  fontSize: 28,
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
-                  letterSpacing: 1.2,
+                  letterSpacing: 1,
                 ),
               ),
               const SizedBox(height: 8),
@@ -169,47 +226,59 @@ class ExperiencePage extends StatelessWidget {
                 company,
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.4),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 25),
               Text(
                 description,
                 style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.5),
-                  height: 1.6,
+                  color: Colors.white.withValues(alpha: 0.45),
+                  height: 1.7,
                   fontSize: 15,
                 ),
               ),
               const SizedBox(height: 25),
               Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: tags.map((tag) => _buildTag(tag)).toList(),
+                spacing: 8,
+                runSpacing: 8,
+                children: tags.map((tag) => _buildTag(tag, theme)).toList(),
               ),
             ],
           ),
-        const SizedBox(height: 60),
-        Divider(color: Colors.white.withValues(alpha: 0.05)),
+        const SizedBox(height: 40),
+        // Gradient divider
+        Container(
+          height: 1,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.transparent,
+                theme.colorScheme.primary.withValues(alpha: 0.15),
+                Colors.transparent,
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildTag(String tag) {
+  Widget _buildTag(String tag, ThemeData theme) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.02),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05), width: 1),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white.withValues(alpha: 0.03),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Text(
         tag,
-        style: const TextStyle(
-          color: Colors.white70,
+        style: TextStyle(
+          color: Colors.white.withValues(alpha: 0.6),
           fontSize: 11,
-          fontWeight: FontWeight.w900,
+          fontWeight: FontWeight.w700,
           letterSpacing: 0.5,
         ),
       ),

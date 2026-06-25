@@ -61,6 +61,7 @@ class _MainScrollPageState extends State<MainScrollPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: _scrollController,
+      physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
           HomePage(key: _homeKey, onSectionTap: scrollToSection),

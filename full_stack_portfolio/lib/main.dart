@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Full Stack Portfolio',
+      title: 'Aalok Kumar — Full Stack Developer',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system, // Let the system decide light/dark
+      themeMode: ThemeMode.dark,
       routerConfig: appRouter,
     );
   }
