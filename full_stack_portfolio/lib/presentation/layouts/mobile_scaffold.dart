@@ -47,6 +47,7 @@ class MobileScaffold extends StatelessWidget {
             _drawerTile(context, 'EXPERIENCE', 'experience', Icons.work_outline),
             _drawerTile(context, 'PROJECTS', 'projects', Icons.rocket_launch_outlined),
             _drawerTile(context, 'BEYOND CODE', 'beyond-code', Icons.interests_outlined),
+            _drawerTile(context, 'BLOGS', 'blogs', Icons.article_outlined),
             _drawerTile(context, 'CONTACT', 'contact', Icons.contact_mail_outlined),
           ],
         ),

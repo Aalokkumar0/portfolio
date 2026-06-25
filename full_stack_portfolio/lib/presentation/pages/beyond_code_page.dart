@@ -9,84 +9,82 @@ class BeyondCodePage extends StatelessWidget {
     final theme = Theme.of(context);
     final isDesktop = ResponsiveLayout.isDesktop(context);
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: isDesktop ? 100 : 20,
-          vertical: 80,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(width: 30, height: 2, color: theme.colorScheme.primary),
-                const SizedBox(width: 15),
-                Text(
-                  'LIFE OUTSIDE WORK',
-                  style: TextStyle(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                    fontSize: 14,
-                  ),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: isDesktop ? 100 : 20,
+        vertical: 120,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(width: 30, height: 2, color: theme.colorScheme.primary),
+              const SizedBox(width: 15),
+              Text(
+                'LIFE OUTSIDE WORK',
+                style: TextStyle(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                  fontSize: 14,
                 ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'BEYOND CODE',
-              style: TextStyle(
-                fontFamily: 'ChelseaMarket',
-                fontSize: 80,
-                color: Colors.white,
-                letterSpacing: 0.5,
-                height: 1,
               ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          const Text(
+            'BEYOND CODE',
+            style: TextStyle(
+              fontSize: 90,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: 2,
+              height: 1,
             ),
-            const SizedBox(height: 80),
-            _buildInterestItem(
-              context,
-              'OPEN SOURCE CONTRIBUTOR',
-              'I am passionate about giving back to the community. Whether it\'s fixing bugs in libraries I use or sharing my own tools, I believe open source is the heart of innovation.',
-              Icons.terminal,
-            ),
-            const SizedBox(height: 40),
-            _buildInterestItem(
-              context,
-              'CONTINUOUS LEARNING',
-              'The tech world moves fast. I spend a significant amount of my time experimenting with new frameworks, reading research papers on AI, and building prototypes of future-ready applications.',
-              Icons.menu_book,
-            ),
-            const SizedBox(height: 40),
-            _buildInterestItem(
-              context,
-              'CYCLING & FITNESS',
-              'When I\'m not at my desk, I\'m likely out cycling. It helps me clear my head and find solutions to complex problems I\'m working on.',
-              Icons.directions_bike,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 100),
+          _buildInterestItem(
+            context,
+            'OPEN SOURCE CONTRIBUTOR',
+            'I am passionate about giving back to the community. Whether it\'s fixing bugs in libraries I use or sharing my own tools, I believe open source is the heart of innovation.',
+            Icons.terminal_rounded,
+          ),
+          const SizedBox(height: 45),
+          _buildInterestItem(
+            context,
+            'CONTINUOUS LEARNING',
+            'The tech world moves fast. I spend a significant amount of my time experimenting with new frameworks, reading research papers on AI, and building prototypes of future-ready applications.',
+            Icons.auto_stories_rounded,
+          ),
+          const SizedBox(height: 45),
+          _buildInterestItem(
+            context,
+            'CYCLING & FITNESS',
+            'When I\'m not at my desk, I\'m likely out cycling. It helps me clear my head and find solutions to complex problems I\'m working on.',
+            Icons.directions_bike_rounded,
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildInterestItem(BuildContext context, String title, String description, IconData icon) {
     final theme = Theme.of(context);
-    final isDesktop = ResponsiveLayout.isDesktop(context);
 
     return Container(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.all(50),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.02),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        color: Colors.white.withValues(alpha: 0.02),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05), width: 1),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: theme.colorScheme.primary, size: 40),
-          const SizedBox(width: 30),
+          Icon(icon, color: theme.colorScheme.primary, size: 45),
+          const SizedBox(width: 40),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,19 +92,19 @@ class BeyondCodePage extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontFamily: 'ChelseaMarket',
                     fontSize: 32,
+                    fontWeight: FontWeight.w900,
                     color: Colors.white,
-                    letterSpacing: 0.5,
+                    letterSpacing: 1.5,
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 20),
                 Text(
                   description,
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withValues(alpha: 0.5),
                     height: 1.8,
-                    fontSize: 16,
+                    fontSize: 17,
                   ),
                 ),
               ],

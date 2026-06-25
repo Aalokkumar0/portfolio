@@ -10,45 +10,44 @@ class AboutPage extends StatelessWidget {
 
     return Column(
       children: [
-          // Section 1: About Intro
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: isDesktop ? 100 : 20,
-              vertical: 80,
-            ),
-            child: isDesktop
-                ? Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(flex: 3, child: _buildAboutIntro(context)),
-                      const SizedBox(width: 80),
-                      Expanded(flex: 2, child: _buildEducation(context)),
-                    ],
-                  )
-                : Column(
-                    children: [
-                      _buildAboutIntro(context),
-                      const SizedBox(height: 60),
-                      _buildEducation(context),
-                    ],
-                  ),
+        // Section 1: About Intro
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: isDesktop ? 100 : 20,
+            vertical: 120,
           ),
+          child: isDesktop
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(flex: 3, child: _buildAboutIntro(context)),
+                    const SizedBox(width: 80),
+                    Expanded(flex: 2, child: _buildEducation(context)),
+                  ],
+                )
+              : Column(
+                  children: [
+                    _buildAboutIntro(context),
+                    const SizedBox(height: 80),
+                    _buildEducation(context),
+                  ],
+                ),
+        ),
 
-          // Section 2: Technical Skills (Full Width Darker Background)
-          _buildSkillsSection(context),
+        // Section 2: Technical Skills (Full Width Darker Background)
+        _buildSkillsSection(context),
 
-          // Section 3: Experience
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: isDesktop ? 100 : 20,
-              vertical: 80,
-            ),
-            child: _buildExperienceTimeline(context),
+        // Section 3: Experience
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: isDesktop ? 100 : 20,
+            vertical: 120,
           ),
-          
-          const SizedBox(height: 60),
-        ],
-      ),
+          child: _buildExperienceTimeline(context),
+        ),
+
+        const SizedBox(height: 60),
+      ],
     );
   }
 
@@ -66,38 +65,40 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(
                 color: theme.colorScheme.primary,
                 fontWeight: FontWeight.bold,
-                letterSpacing: 0.5,
+                letterSpacing: 2,
                 fontSize: 14,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 25),
         const Text(
           'ABOUT ME',
           style: TextStyle(
-            fontFamily: 'ChelseaMarket',
-            fontSize: 80,
+            fontSize: 90,
+            fontWeight: FontWeight.w900,
             color: Colors.white,
-            letterSpacing: 0.5,
+            letterSpacing: 2,
             height: 1,
           ),
         ),
-        const SizedBox(height: 32),
+        const SizedBox(height: 40),
         Text(
           'Software Developer with experience building mobile and backend applications using Flutter, Kotlin, FastAPI, PostgreSQL, Firebase, and Generative AI technologies.',
           style: theme.textTheme.headlineSmall?.copyWith(
-            color: Colors.white.withOpacity(0.9),
-            height: 1.4,
+            color: Colors.white,
+            height: 1.5,
             fontWeight: FontWeight.w300,
+            fontSize: 26,
           ),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 30),
         Text(
           'Passionate about building high-performance, user-centric solutions with modern development frameworks and industry best practices. Experienced in developing real-time applications, integrating cloud services, and delivering end-to-end software solutions from concept to deployment.',
           style: theme.textTheme.bodyLarge?.copyWith(
-            color: Colors.white.withOpacity(0.6),
+            color: Colors.white.withValues(alpha: 0.5),
             height: 1.8,
+            fontSize: 17,
           ),
         ),
       ],
@@ -110,10 +111,10 @@ class AboutPage extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      color: theme.colorScheme.surface.withOpacity(0.3),
+      color: theme.colorScheme.surface.withValues(alpha: 0.2),
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 20,
-        vertical: 100,
+        vertical: 120,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,20 +122,20 @@ class AboutPage extends StatelessWidget {
           const Text(
             'TECHNICAL SKILLS',
             style: TextStyle(
-              fontFamily: 'ChelseaMarket',
-              fontSize: 60,
+              fontSize: 70,
+              fontWeight: FontWeight.w900,
               color: Colors.white,
-              letterSpacing: 0.5,
+              letterSpacing: 2,
             ),
           ),
-          const SizedBox(height: 60),
+          const SizedBox(height: 80),
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: isDesktop ? 3 : 1,
-            mainAxisSpacing: 30,
-            crossAxisSpacing: 30,
-            childAspectRatio: 1.5,
+            mainAxisSpacing: 35,
+            crossAxisSpacing: 35,
+            childAspectRatio: 1.4,
             children: [
               _buildSkillCard(context, 'MOBILE', 'Flutter, Dart, Kotlin, Jetpack Compose, Android SDK', Icons.smartphone),
               _buildSkillCard(context, 'BACKEND', 'Python, FastAPI, JWT, SQLAlchemy, Microservices', Icons.dns),
@@ -152,34 +153,39 @@ class AboutPage extends StatelessWidget {
   Widget _buildSkillCard(BuildContext context, String title, String skills, IconData icon) {
     final theme = Theme.of(context);
     return Container(
-      padding: const EdgeInsets.all(30),
+      padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.02),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        color: Colors.white.withValues(alpha: 0.02),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05), width: 1),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(icon, color: theme.colorScheme.primary, size: 30),
-          const Spacer(),
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              letterSpacing: 1,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            skills,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-              fontSize: 13,
-              height: 1.5,
-            ),
+          Icon(icon, color: theme.colorScheme.primary, size: 35),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 18,
+                  letterSpacing: 1.5,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                skills,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.4),
+                  fontSize: 13,
+                  height: 1.6,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -187,34 +193,33 @@ class AboutPage extends StatelessWidget {
   }
 
   Widget _buildEducation(BuildContext context) {
-    final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           'EDUCATION',
           style: TextStyle(
-            fontFamily: 'ChelseaMarket',
-            fontSize: 40,
+            fontSize: 45,
+            fontWeight: FontWeight.w900,
             color: Colors.white,
             letterSpacing: 1,
           ),
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 40),
         _buildEduItem(
           context,
           'B.E. - INFORMATION SCIENCE',
           'AMC Engineering College, Bengaluru',
           '2022 - 2026',
         ),
-        const SizedBox(height: 25),
+        const SizedBox(height: 35),
         _buildEduItem(
           context,
           'HIGHER SECONDARY (12TH)',
           'BSEB Board | 62.7%',
           '2021',
         ),
-        const SizedBox(height: 25),
+        const SizedBox(height: 35),
         _buildEduItem(
           context,
           'SECONDARY (10TH)',
@@ -232,37 +237,36 @@ class AboutPage extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16, letterSpacing: 1),
         ),
-        const SizedBox(height: 5),
+        const SizedBox(height: 8),
         Text(
           sub,
-          style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 13),
+          style: TextStyle(color: Colors.white.withValues(alpha: 0.4), fontSize: 14, fontWeight: FontWeight.w500),
         ),
-        const SizedBox(height: 5),
+        const SizedBox(height: 8),
         Text(
           year,
-          style: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.bold, fontSize: 12),
+          style: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1),
         ),
       ],
     );
   }
 
   Widget _buildExperienceTimeline(BuildContext context) {
-    final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           'EXPERIENCE',
           style: TextStyle(
-            fontFamily: 'ChelseaMarket',
-            fontSize: 60,
+            fontSize: 70,
+            fontWeight: FontWeight.w900,
             color: Colors.white,
-            letterSpacing: 0.5,
+            letterSpacing: 2,
           ),
         ),
-        const SizedBox(height: 60),
+        const SizedBox(height: 80),
         _buildTimelineItem(
           context,
           'Android App Development (GenAI) Intern',
@@ -291,12 +295,12 @@ class AboutPage extends StatelessWidget {
             ),
             Container(
               width: 2,
-              height: 150,
-              color: Colors.white.withOpacity(0.1),
+              height: 180,
+              color: Colors.white.withValues(alpha: 0.05),
             ),
           ],
         ),
-        const SizedBox(width: 30),
+        const SizedBox(width: 40),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,35 +309,38 @@ class AboutPage extends StatelessWidget {
                 period,
                 style: TextStyle(
                   color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 15,
+                  letterSpacing: 1,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Text(
                 role.toUpperCase(),
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w900,
-                  fontSize: 24,
-                  letterSpacing: 1,
+                  fontSize: 32,
+                  letterSpacing: 1.5,
                 ),
               ),
+              const SizedBox(height: 8),
               Text(
                 company,
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.5),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  color: Colors.white.withValues(alpha: 0.4),
+                  fontWeight: FontWeight.w900,
+                  fontSize: 18,
+                  letterSpacing: 1,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               Text(
                 desc,
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.6),
+                  color: Colors.white.withValues(alpha: 0.5),
                   height: 1.8,
-                  fontSize: 15,
+                  fontSize: 16,
                 ),
               ),
             ],

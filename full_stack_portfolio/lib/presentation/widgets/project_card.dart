@@ -21,7 +21,7 @@ class ProjectCard extends StatelessWidget {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: theme.dividerColor.withOpacity(0.05),
+          color: theme.dividerColor.withValues(alpha: 0.05),
         ),
       ),
       clipBehavior: Clip.antiAlias,
@@ -34,12 +34,12 @@ class ProjectCard extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 16 / 9,
               child: Container(
-                color: theme.colorScheme.primary.withOpacity(0.05),
+                color: theme.colorScheme.primary.withValues(alpha: 0.05),
                 child: Center(
                   child: Icon(
                     Icons.image_outlined,
                     size: 48,
-                    color: theme.colorScheme.primary.withOpacity(0.2),
+                    color: theme.colorScheme.primary.withValues(alpha: 0.2),
                   ),
                 ),
               ),
@@ -60,7 +60,7 @@ class ProjectCard extends StatelessWidget {
                               vertical: 4,
                             ),
                             decoration: BoxDecoration(
-                              color: theme.colorScheme.primary.withOpacity(0.1),
+                              color: theme.colorScheme.primary.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
@@ -87,7 +87,7 @@ class ProjectCard extends StatelessWidget {
                 Text(
                   description,
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
+                    color: theme.textTheme.bodyMedium?.color?.withValues(alpha: 0.7),
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

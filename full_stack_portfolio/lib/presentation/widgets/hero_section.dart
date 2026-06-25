@@ -13,24 +13,30 @@ class HeroSection extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: isDesktop ? MediaQuery.of(context).size.height - 80 : null,
+      constraints: BoxConstraints(
+        minHeight: isDesktop ? MediaQuery.of(context).size.height - 80 : 0,
+      ),
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 20,
         vertical: isDesktop ? 0 : 60,
       ),
       child: Stack(
+        alignment: Alignment.center,
         children: [
+          // Large Background Watermark
           if (isDesktop)
             Positioned(
-              right: -50,
-              top: 100,
-              child: Text(
-                'DEVELOPER',
-                style: TextStyle(
-                  fontFamily: 'ChelseaMarket',
-                  fontSize: 250,
-                  color: Colors.white.withOpacity(0.03),
-                  height: 0.8,
+              right: -20,
+              child: Opacity(
+                opacity: 0.03,
+                child: Text(
+                  'DEVELOPER',
+                  style: TextStyle(
+                    fontSize: 220,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white,
+                    letterSpacing: 10,
+                  ),
                 ),
               ),
             ),
@@ -41,76 +47,87 @@ class HeroSection extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Left Content Area
                   Expanded(
                     flex: 3,
                     child: Column(
                       crossAxisAlignment: isDesktop ? CrossAxisAlignment.start : CrossAxisAlignment.center,
                       children: [
+                        // Professional Subtitle
                         Row(
                           mainAxisAlignment: isDesktop ? MainAxisAlignment.start : MainAxisAlignment.center,
                           children: [
-                            Container(width: 20, height: 2, color: theme.colorScheme.primary),
-                            const SizedBox(width: 10),
+                            Container(
+                              width: 30,
+                              height: 2,
+                              color: theme.colorScheme.primary,
+                            ),
+                            const SizedBox(width: 15),
                             Text(
                               'MOBILE APP DEVELOPER & GENAI INTERN',
                               style: TextStyle(
                                 color: theme.colorScheme.primary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 13,
-                                letterSpacing: 0.5,
+                                letterSpacing: 1.5,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 15),
-                        const Text(
+                        const SizedBox(height: 20),
+                        // Name: AALOK (Solid)
+                        Text(
                           'AALOK',
                           style: TextStyle(
-                            fontFamily: 'ChelseaMarket',
-                            fontSize: 110,
+                            fontSize: isDesktop ? 110 : 70,
+                            fontWeight: FontWeight.w900,
                             color: Colors.white,
-                            height: 0.9,
-                            letterSpacing: 0.5,
+                            height: 1,
+                            letterSpacing: 2,
                           ),
                         ),
+                        // Name: KUMAR (Outlined)
                         Text(
                           'KUMAR',
                           style: TextStyle(
-                            fontFamily: 'ChelseaMarket',
-                            fontSize: 110,
-                            height: 0.9,
-                            letterSpacing: 0.5,
+                            fontSize: isDesktop ? 110 : 70,
+                            fontWeight: FontWeight.w900,
+                            height: 1,
+                            letterSpacing: 2,
                             foreground: Paint()
                               ..style = PaintingStyle.stroke
                               ..strokeWidth = 2
-                              ..color = theme.colorScheme.primary,
+                              ..color = theme.colorScheme.primary.withValues(alpha: 0.8),
                           ),
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 30),
+                        // Tech Stack Dots
                         Text(
                           'Firebase  •  Kotlin  •  Flutter  •  FastAPI  •  Cross-Platform Builder',
                           textAlign: isDesktop ? TextAlign.left : TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.4),
-                            fontSize: 13,
+                            color: Colors.white.withValues(alpha: 0.4),
+                            fontSize: 14,
                             fontWeight: FontWeight.w500,
                             letterSpacing: 0.5,
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 35),
+                        // Short Bio
                         SizedBox(
-                          width: isDesktop ? 500 : double.infinity,
+                          width: isDesktop ? 550 : double.infinity,
                           child: Text(
                             'Building scalable mobile and backend applications with Flutter, Kotlin, FastAPI, and Firebase. Crafting performance-optimized UI experiences with real-time systems and modular architecture.',
                             textAlign: isDesktop ? TextAlign.left : TextAlign.center,
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.7),
-                              height: 1.6,
-                              fontSize: 15,
+                              color: Colors.white.withValues(alpha: 0.7),
+                              height: 1.7,
+                              fontSize: 16,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 45),
+                        // Action Buttons
                         Row(
                           mainAxisAlignment: isDesktop ? MainAxisAlignment.start : MainAxisAlignment.center,
                           children: [
@@ -119,33 +136,39 @@ class HeroSection extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: theme.colorScheme.primary,
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 22),
+                                padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 25),
                                 shape: const RoundedRectangleBorder(),
+                                elevation: 0,
                               ),
-                              child: const Text('VIEW WORK', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1)),
+                              child: const Text('VIEW WORK', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.5)),
                             ),
-                            const SizedBox(width: 15),
+                            const SizedBox(width: 20),
                             OutlinedButton(
                               onPressed: () => onSectionTap?.call('contact'),
                               style: OutlinedButton.styleFrom(
-                                side: const BorderSide(color: Colors.white24),
+                                side: const BorderSide(color: Colors.white24, width: 1.5),
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 22),
+                                padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 25),
                                 shape: const RoundedRectangleBorder(),
                               ),
-                              child: const Text('GET IN TOUCH', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1)),
+                              child: const Text('GET IN TOUCH', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.5)),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 35),
+                        const SizedBox(height: 40),
+                        // Location info
                         Row(
                           mainAxisAlignment: isDesktop ? MainAxisAlignment.start : MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.location_on_outlined, color: Colors.white38, size: 16),
-                            const SizedBox(width: 5),
+                            Icon(Icons.location_on_outlined, color: theme.colorScheme.primary.withValues(alpha: 0.5), size: 18),
+                            const SizedBox(width: 8),
                             Text(
                               'Bangalore, India',
-                              style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 13),
+                              style: TextStyle(
+                                color: Colors.white.withValues(alpha: 0.4),
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -153,33 +176,43 @@ class HeroSection extends StatelessWidget {
                     ),
                   ),
                   
+                  // Right Content Area (Image)
                   if (isDesktop)
                     Expanded(
                       flex: 2,
                       child: Stack(
                         alignment: Alignment.bottomRight,
                         children: [
+                          // Main Image Container
                           Container(
-                            height: 450,
-                            width: 350,
+                            height: 520,
+                            width: 400,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: theme.colorScheme.surface,
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.5),
+                                  blurRadius: 30,
+                                  offset: const Offset(0, 20),
+                                ),
+                              ],
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(15),
                               child: Image.network(
-                                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=350&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
                                 fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) => Center(
-                                  child: Icon(Icons.person, size: 100, color: Colors.white10),
+                                errorBuilder: (context, error, stackTrace) => Container(
+                                  color: theme.colorScheme.surface,
+                                  child: Icon(Icons.person, size: 120, color: Colors.white.withValues(alpha: 0.05)),
                                 ),
                               ),
                             ),
                           ),
+                          // "Available for work" Badge
                           Container(
-                            margin: const EdgeInsets.all(15),
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                            margin: const EdgeInsets.all(25),
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                             decoration: BoxDecoration(
                               color: theme.colorScheme.primary,
                               borderRadius: BorderRadius.circular(4),
@@ -188,8 +221,8 @@ class HeroSection extends StatelessWidget {
                               'AVAILABLE FOR WORK',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 11,
                                 letterSpacing: 0.5,
                               ),
                             ),

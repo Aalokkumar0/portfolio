@@ -9,9 +9,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = ResponsiveLayout.isDesktop(context);
-    
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         HeroSection(onSectionTap: onSectionTap),
         _buildServicesSection(context),
@@ -27,7 +26,7 @@ class HomePage extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      color: theme.colorScheme.surface.withOpacity(0.3),
+      color: theme.colorScheme.surface.withValues(alpha: 0.3),
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 20,
         vertical: 100,
@@ -54,7 +53,7 @@ class HomePage extends StatelessWidget {
           const Text(
             'SERVICES',
             style: TextStyle(
-              fontFamily: 'ChelseaMarket',
+              
               fontSize: 80,
               color: Colors.white,
               letterSpacing: 0.5,
@@ -85,32 +84,37 @@ class HomePage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.02),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        color: Colors.white.withValues(alpha: 0.02),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Icon(icon, color: theme.colorScheme.primary, size: 40),
-          const Spacer(),
-          Text(
-            title,
-            style: const TextStyle(
-              fontFamily: 'ChelseaMarket',
-              fontSize: 28,
-              color: Colors.white,
-              letterSpacing: 0.5,
-            ),
-          ),
-          const SizedBox(height: 15),
-          Text(
-            desc,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-              fontSize: 14,
-              height: 1.6,
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  
+                  fontSize: 28,
+                  color: Colors.white,
+                  letterSpacing: 0.5,
+                ),
+              ),
+              const SizedBox(height: 15),
+              Text(
+                desc,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.5),
+                  fontSize: 14,
+                  height: 1.6,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -149,7 +153,7 @@ class HomePage extends StatelessWidget {
           const Text(
             'FEATURED PROJECTS',
             style: TextStyle(
-              fontFamily: 'ChelseaMarket',
+              
               fontSize: 80,
               color: Colors.white,
               letterSpacing: 0.5,
@@ -194,7 +198,7 @@ class HomePage extends StatelessWidget {
                       Text(
                         title,
                         style: const TextStyle(
-                          fontFamily: 'ChelseaMarket',
+                          
                           fontSize: 48,
                           color: Colors.white,
                           letterSpacing: 0.5,
@@ -216,7 +220,7 @@ class HomePage extends StatelessWidget {
                   child: Text(
                     desc,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.5),
+                      color: Colors.white.withValues(alpha: 0.5),
                       fontSize: 16,
                       height: 1.6,
                     ),
@@ -234,7 +238,7 @@ class HomePage extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontFamily: 'ChelseaMarket',
+                    
                     fontSize: 40,
                     color: Colors.white,
                     letterSpacing: 0.5,
@@ -253,7 +257,7 @@ class HomePage extends StatelessWidget {
                 Text(
                   desc,
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withValues(alpha: 0.5),
                     fontSize: 16,
                     height: 1.6,
                   ),

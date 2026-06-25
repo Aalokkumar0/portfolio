@@ -11,8 +11,9 @@ class DesktopScaffold extends StatelessWidget {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 80,
-        titleSpacing: 80,
+        toolbarHeight: 110,
+        titleSpacing: 100,
+        backgroundColor: Colors.transparent,
         title: GestureDetector(
           onTap: () => onSectionTap?.call('home'),
           child: Text(
@@ -31,48 +32,51 @@ class DesktopScaffold extends StatelessWidget {
           _navLink('PROJECTS', 'projects'),
           _navLink('BEYOND CODE', 'beyond-code'),
           _navLink('CONTACT', 'contact'),
-          const SizedBox(width: 15),
+          const SizedBox(width: 25),
+          // Blogs Button
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 22),
+            margin: const EdgeInsets.symmetric(vertical: 32),
             decoration: BoxDecoration(
-              border: Border.all(color: theme.colorScheme.primary.withOpacity(0.8)),
-              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.6), width: 1.5),
+              borderRadius: BorderRadius.circular(30),
             ),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () => onSectionTap?.call('blogs'),
               style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
               ),
               child: const Text(
-                'RESUME',
+                'BLOGS',
                 style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 12,
                   letterSpacing: 1,
                 ),
               ),
             ),
           ),
-          const SizedBox(width: 80),
+          const SizedBox(width: 100),
         ],
       ),
+      extendBodyBehindAppBar: true,
       body: child,
     );
   }
 
   Widget _navLink(String title, String section) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 18),
       child: TextButton(
         onPressed: () => onSectionTap?.call(section),
         child: Text(
           title,
           style: const TextStyle(
             color: Colors.white70,
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1.2,
+            fontSize: 12,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 1.5,
           ),
         ),
       ),

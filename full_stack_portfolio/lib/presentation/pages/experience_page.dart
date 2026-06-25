@@ -12,57 +12,56 @@ class ExperiencePage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 20,
-        vertical: 80,
+        vertical: 120,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-            Row(
-              children: [
-                Container(width: 30, height: 2, color: theme.colorScheme.primary),
-                const SizedBox(width: 15),
-                Text(
-                  'MY JOURNEY',
-                  style: TextStyle(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                    fontSize: 14,
-                  ),
+          Row(
+            children: [
+              Container(width: 30, height: 2, color: theme.colorScheme.primary),
+              const SizedBox(width: 15),
+              Text(
+                'MY JOURNEY',
+                style: TextStyle(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                  fontSize: 14,
                 ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'EXPERIENCE',
-              style: TextStyle(
-                fontFamily: 'ChelseaMarket',
-                fontSize: 80,
-                color: Colors.white,
-                letterSpacing: 0.5,
-                height: 1,
               ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          const Text(
+            'EXPERIENCE',
+            style: TextStyle(
+              fontSize: 90,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: 2,
+              height: 1,
             ),
-            const SizedBox(height: 80),
-            _buildExperienceItem(
-              context,
-              'MindMatrix.io',
-              'Android App Development (GenAI) Intern',
-              'FEB 2026 - MAY 2026',
-              'Successfully completed an industry-oriented internship focused on Android Development, Generative AI, and Cloud Technologies. Worked with Kotlin, Jetpack Compose, Firebase, Google AI Studio, and Google Cloud Labs. Contributed to UI/UX design, feature development, testing, debugging, and performance optimization.',
-              ['KOTLIN', 'JETPACK COMPOSE', 'GENAI', 'FIREBASE', 'GOOGLE CLOUD'],
-            ),
-            const SizedBox(height: 60),
-            _buildExperienceItem(
-              context,
-              'Self-Employed / Freelance',
-              'Full Stack Developer',
-              '2024 - PRESENT',
-              'Building and deploying end-to-end applications for clients. Focused on creating scalable backends with FastAPI and high-performance mobile frontends with Flutter. Managed multiple projects from initial concept to final production deployment.',
-              ['FLUTTER', 'DART', 'FASTAPI', 'POSTGRESQL', 'DOCKER'],
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 100),
+          _buildExperienceItem(
+            context,
+            'MindMatrix.io',
+            'Android App Development (GenAI) Intern',
+            'FEB 2026 - MAY 2026',
+            'Successfully completed an industry-oriented internship focused on Android Development, Generative AI, and Cloud Technologies. Worked with Kotlin, Jetpack Compose, Firebase, Google AI Studio, and Google Cloud Labs. Contributed to UI/UX design, feature development, testing, debugging, and performance optimization. Recognized with an Excellent performance rating for overall contribution.',
+            ['KOTLIN', 'JETPACK COMPOSE', 'GENAI', 'FIREBASE', 'GOOGLE CLOUD'],
+          ),
+          const SizedBox(height: 80),
+          _buildExperienceItem(
+            context,
+            'Self-Employed / Freelance',
+            'Full Stack Developer',
+            '2024 - PRESENT',
+            'Building and deploying end-to-end applications for clients. Focused on creating scalable backends with FastAPI and high-performance mobile frontends with Flutter. Managed multiple projects from initial concept to final production deployment.',
+            ['FLUTTER', 'DART', 'FASTAPI', 'POSTGRESQL', 'DOCKER'],
+          ),
+        ],
       ),
     );
   }
@@ -91,8 +90,9 @@ class ExperiencePage extends StatelessWidget {
                   period,
                   style: TextStyle(
                     color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 18,
+                    letterSpacing: 1,
                   ),
                 ),
               ),
@@ -104,30 +104,33 @@ class ExperiencePage extends StatelessWidget {
                     Text(
                       role.toUpperCase(),
                       style: const TextStyle(
-                        fontFamily: 'ChelseaMarket',
-                        fontSize: 32,
+                        fontSize: 40,
+                        fontWeight: FontWeight.w900,
                         color: Colors.white,
-                        letterSpacing: 0.5,
+                        letterSpacing: 1.5,
+                        height: 1.1,
                       ),
                     ),
+                    const SizedBox(height: 10),
                     Text(
                       company,
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.5),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        color: Colors.white.withValues(alpha: 0.4),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 1,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 30),
                     Text(
                       description,
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.6),
+                        color: Colors.white.withValues(alpha: 0.5),
                         height: 1.8,
-                        fontSize: 16,
+                        fontSize: 17,
                       ),
                     ),
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 35),
                     Wrap(
                       spacing: 12,
                       runSpacing: 12,
@@ -146,38 +149,40 @@ class ExperiencePage extends StatelessWidget {
                 period,
                 style: TextStyle(
                   color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w900,
                   fontSize: 14,
+                  letterSpacing: 1,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Text(
                 role.toUpperCase(),
                 style: const TextStyle(
-                  fontFamily: 'ChelseaMarket',
-                  fontSize: 28,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w900,
                   color: Colors.white,
                   letterSpacing: 1.2,
                 ),
               ),
+              const SizedBox(height: 8),
               Text(
                 company,
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.5),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                  color: Colors.white.withValues(alpha: 0.4),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               Text(
                 description,
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.6),
+                  color: Colors.white.withValues(alpha: 0.5),
                   height: 1.6,
-                  fontSize: 14,
+                  fontSize: 15,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
@@ -185,26 +190,27 @@ class ExperiencePage extends StatelessWidget {
               ),
             ],
           ),
-        const SizedBox(height: 40),
-        const Divider(color: Colors.white10),
+        const SizedBox(height: 60),
+        Divider(color: Colors.white.withValues(alpha: 0.05)),
       ],
     );
   }
 
   Widget _buildTag(String tag) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.03),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
-        borderRadius: BorderRadius.circular(2),
+        color: Colors.white.withValues(alpha: 0.02),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05), width: 1),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
         tag,
         style: const TextStyle(
           color: Colors.white70,
           fontSize: 11,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w900,
+          letterSpacing: 0.5,
         ),
       ),
     );

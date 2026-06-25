@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import '../layouts/desktop_scaffold.dart';
-import '../layouts/mobile_scaffold.dart';
-import '../layouts/responsive_layout.dart';
 import 'home_page.dart';
 import 'about_page.dart';
 import 'skills_page.dart';
@@ -11,7 +8,8 @@ import 'beyond_code_page.dart';
 import 'contact_page.dart';
 
 class MainScrollPage extends StatefulWidget {
-  const MainScrollPage({super.key});
+  final String? initialSection;
+  const MainScrollPage({super.key, this.initialSection});
 
   @override
   State<MainScrollPage> createState() => _MainScrollPageState();
@@ -28,7 +26,17 @@ class _MainScrollPageState extends State<MainScrollPage> {
   final GlobalKey _beyondCodeKey = GlobalKey();
   final GlobalKey _contactKey = GlobalKey();
 
-  void _scrollToSection(String section) {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialSection != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        scrollToSection(widget.initialSection!);
+      });
+    }
+  }
+
+  void scrollToSection(String section) {
     GlobalKey? targetKey;
     switch (section) {
       case 'home': targetKey = _homeKey; break;
@@ -51,40 +59,18 @@ class _MainScrollPageState extends State<MainScrollPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveLayout(
-      mobileLayout: MobileScaffold(
-        onSectionTap: _scrollToSection,
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            children: [
-              HomePage(key: _homeKey, onSectionTap: _scrollToSection),
-              AboutPage(key: _aboutKey),
-              SkillsPage(key: _skillsKey),
-              ExperiencePage(key: _experienceKey),
-              ProjectsPage(key: _projectsKey),
-              BeyondCodePage(key: _beyondCodeKey),
-              ContactPage(key: _contactKey),
-            ],
-          ),
-        ),
-      ),
-      desktopLayout: DesktopScaffold(
-        onSectionTap: _scrollToSection,
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            children: [
-              HomePage(key: _homeKey, onSectionTap: _scrollToSection),
-              AboutPage(key: _aboutKey),
-              SkillsPage(key: _skillsKey),
-              ExperiencePage(key: _experienceKey),
-              ProjectsPage(key: _projectsKey),
-              BeyondCodePage(key: _beyondCodeKey),
-              ContactPage(key: _contactKey),
-            ],
-          ),
-        ),
+    return SingleChildScrollView(
+      controller: _scrollController,
+      child: Column(
+        children: [
+          HomePage(key: _homeKey, onSectionTap: scrollToSection),
+          AboutPage(key: _aboutKey),
+          SkillsPage(key: _skillsKey),
+          ExperiencePage(key: _experienceKey),
+          ProjectsPage(key: _projectsKey),
+          BeyondCodePage(key: _beyondCodeKey),
+          ContactPage(key: _contactKey),
+        ],
       ),
     );
   }

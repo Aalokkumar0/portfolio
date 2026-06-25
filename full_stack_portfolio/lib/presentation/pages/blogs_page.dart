@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../layouts/responsive_layout.dart';
 
 class BlogsPage extends StatelessWidget {
@@ -11,163 +12,232 @@ class BlogsPage extends StatelessWidget {
     final blogs = [
       {
         'title': 'Kairo — An Intelligent Break Reminder That Knows When You Actually Need One',
-        'excerpt': 'Kairo is a macOS menu bar app that intelligently forces you to take breaks. It watches your work patterns, respects your meetings, credits natural idle time...',
+        'excerpt': 'Kairo is a macOS menu bar app that intelligently forces you to take breaks. It watches your work patterns, respects your meetings, credits natural idle time, and steps in when you have been at the screen too long — no manual timers, no guesswork.',
         'date': 'May 22, 2026',
-        'author': 'Aalok Kumar',
-        'tags': ['MACOS-APP', 'HEALTH', 'PRODUCTIVITY', 'SWIFTUI'],
+        'author': 'Abhishek Thakur',
+        'tags': ['MACOS-APP', 'HEALTH', 'PRODUCTIVITY', 'SWIFTUI', 'BREAK-REMINDER', 'DEVITY-ENGINEERING'],
         'image': 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop',
       },
       {
         'title': 'Daily Flow — A Minimalist, Day-First Task Management System',
-        'excerpt': 'Daily Flow is a minimalist, day-first task management system that helps you focus on what matters today. Unfinished tasks carry forward automatically...',
+        'excerpt': 'Daily Flow is a minimalist, day-first task management system that helps you focus on what matters today. Unfinished tasks carry forward automatically, only one task can be "In Progress" at a time, and your complete history stays visible.',
         'date': 'April 21, 2026',
-        'author': 'Aalok Kumar',
-        'tags': ['WEB-APP', 'TASK-MANAGEMENT', 'PRODUCTIVITY', 'MINIMALIST'],
+        'author': 'Abhishek Thakur',
+        'tags': ['WEB-APP', 'TASK-MANAGEMENT', 'PRODUCTIVITY', 'DAY-FIRST', 'MINIMALIST', 'DEVITY-ENGINEERING'],
         'image': 'https://images.unsplash.com/photo-1484417894907-623942c8ee29?q=80&w=800&auto=format&fit=crop',
       },
       {
         'title': 'TailorFlow — A Privacy-First, Offline-Capable Digital Ledger for Tailors',
-        'excerpt': 'TailorFlow is a privacy-first, offline-capable digital ledger for tailors and clothing businesses. Replaces physical order registers with a searchable...',
-        'date': 'April 11, 2026',
-        'author': 'Aalok Kumar',
-        'tags': ['WEB-APP', 'TAILOR', 'OFFLINE-FIRST', 'PWA'],
+        'excerpt': 'TailorFlow is a privacy-first, offline-capable digital ledger for tailors and clothing businesses. Replaces physical order registers with a searchable, measurement-focused system where you own 100% of your data.',
+        'date': 'April 21, 2026',
+        'author': 'Abhishek Thakur',
+        'tags': ['WEB-APP', 'TAILOR', 'OFFLINE-FIRST', 'PWA', 'SQLITE-WASM', 'PRIVACY', 'DEVITY-ENGINEERING'],
         'image': 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop',
+      },
+      {
+        'title': 'Building Modular Mobile Apps with Flutter',
+        'excerpt': 'Modular architecture is key to scaling large applications. In this post, I dive deep into how we can use feature-first organization and clear boundaries to maintain velocity in large teams.',
+        'date': 'January 23, 2026',
+        'author': 'Abhishek Thakur',
+        'tags': ['FLUTTER', 'MOBILE', 'ARCHITECTURE', 'ENGINEERING'],
+        'image': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop',
       },
     ];
 
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: isDesktop ? 100 : 20,
-        vertical: 120,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return Scaffold(
+      backgroundColor: const Color(0xFF020617),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: isDesktop ? 150 : 20,
+            vertical: 40,
+          ),
+          child: Column(
             children: [
-              Container(width: 30, height: 2, color: Theme.of(context).colorScheme.primary),
-              const SizedBox(width: 15),
-              Text(
-                'LATEST UPDATES',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2,
-                  fontSize: 14,
+              // Dedicated Clean Blog Header (Devity Style)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 60),
+                child: Row(
+                  children: [
+                    // Logo back to Portfolio
+                    GestureDetector(
+                      onTap: () => context.go('/'),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF6366F1).withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(Icons.bolt, color: Color(0xFF6366F1), size: 24),
+                          ),
+                          const SizedBox(width: 12),
+                          const Text(
+                            'Devity',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: -0.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Spacer(),
+                    if (isDesktop) ...[
+                      _headerLink('Blog'),
+                      _headerLink('Tags'),
+                      _headerLink('Tools'),
+                      _headerLink('Extensions'),
+                      const SizedBox(width: 20),
+                      const Icon(Icons.search, color: Colors.white70, size: 20),
+                    ] else
+                      IconButton(
+                        onPressed: () => context.go('/'),
+                        icon: const Icon(Icons.close, color: Colors.white70),
+                      ),
+                  ],
                 ),
               ),
+              
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: isDesktop ? 3 : 1,
+                  crossAxisSpacing: 35,
+                  mainAxisSpacing: 60,
+                  mainAxisExtent: isDesktop ? 620 : 650,
+                ),
+                itemCount: blogs.length,
+                itemBuilder: (context, index) {
+                  return _BlogCard(blog: blogs[index]);
+                },
+              ),
+              const SizedBox(height: 100),
             ],
           ),
-          const SizedBox(height: 25),
-          const Text(
-            'BLOGS',
-            style: TextStyle(
-              fontSize: 90,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-              letterSpacing: 2,
-              height: 1,
-            ),
-          ),
-          const SizedBox(height: 100),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: isDesktop ? 3 : 1,
-              crossAxisSpacing: 35,
-              mainAxisSpacing: 50,
-              mainAxisExtent: 600,
-            ),
-            itemCount: blogs.length,
-            itemBuilder: (context, index) {
-              return _buildBlogCard(context, blogs[index]);
-            },
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _buildBlogCard(BuildContext context, Map<String, dynamic> blog) {
-    final theme = Theme.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Blog Image
-        Container(
-          height: 220,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            image: DecorationImage(
-              image: NetworkImage(blog['image']),
-              fit: BoxFit.cover,
-            ),
-          ),
+  Widget _headerLink(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white70,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
         ),
-        const SizedBox(height: 25),
-        // Meta data
-        Row(
+      ),
+    );
+  }
+}
+
+class _BlogCard extends StatelessWidget {
+  final Map<String, dynamic> blog;
+  const _BlogCard({required this.blog});
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {},
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CircleAvatar(radius: 10, backgroundColor: Colors.white10, child: Icon(Icons.person, size: 12, color: Colors.white54)),
-            const SizedBox(width: 10),
-            Text(
-              blog['author'],
-              style: const TextStyle(color: Colors.white70, fontSize: 13, fontWeight: FontWeight.bold),
+            // Cover Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: AspectRatio(
+                aspectRatio: 16 / 10,
+                child: Image.network(
+                  blog['image'],
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            const SizedBox(width: 10),
-            const Text('•', style: TextStyle(color: Colors.white24)),
-            const SizedBox(width: 10),
+            const SizedBox(height: 20),
+            // Meta Row
+            Row(
+              children: [
+                const CircleAvatar(
+                  radius: 10,
+                  backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=aalok'),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  blog['author'],
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Text('•', style: TextStyle(color: Colors.white38)),
+                const SizedBox(width: 8),
+                Text(
+                  blog['date'],
+                  style: const TextStyle(
+                    color: Colors.white38,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 15),
+            // Title
             Text(
-              blog['date'],
-              style: const TextStyle(color: Colors.white38, fontSize: 13),
+              blog['title'],
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+                height: 1.3,
+                letterSpacing: -0.2,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 12),
+            // Excerpt
+            Text(
+              blog['excerpt'],
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.6),
+                height: 1.6,
+                fontSize: 14,
+              ),
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const Spacer(),
+            // Tags
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: (blog['tags'] as List<String>).map((tag) {
+                return Text(
+                  tag,
+                  style: const TextStyle(
+                    color: Color(0xFF6366F1),
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.5,
+                  ),
+                );
+              }).toList(),
             ),
           ],
         ),
-        const SizedBox(height: 20),
-        // Title
-        Text(
-          blog['title'],
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-            height: 1.3,
-          ),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-        const SizedBox(height: 15),
-        // Excerpt
-        Text(
-          blog['excerpt'],
-          style: TextStyle(
-            color: Colors.white.withValues(alpha: 0.4),
-            height: 1.6,
-            fontSize: 15,
-          ),
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-        ),
-        const SizedBox(height: 20),
-        // Tags
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: (blog['tags'] as List<String>).map((tag) {
-            return Text(
-              tag,
-              style: TextStyle(
-                color: theme.colorScheme.secondary.withValues(alpha: 0.8),
-                fontSize: 11,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 0.5,
-              ),
-            );
-          }).toList(),
-        ),
-      ],
+      ),
     );
   }
 }

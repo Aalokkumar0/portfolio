@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../layouts/responsive_layout.dart';
-import '../widgets/project_card.dart';
 
 class ProjectsPage extends StatelessWidget {
   const ProjectsPage({super.key});
@@ -31,59 +30,57 @@ class ProjectsPage extends StatelessWidget {
       },
     ];
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: isDesktop ? 100 : 20,
-          vertical: 80,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(width: 30, height: 2, color: theme.colorScheme.primary),
-                const SizedBox(width: 15),
-                Text(
-                  'MY WORK',
-                  style: TextStyle(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                    fontSize: 14,
-                  ),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: isDesktop ? 100 : 20,
+        vertical: 120,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(width: 30, height: 2, color: theme.colorScheme.primary),
+              const SizedBox(width: 15),
+              Text(
+                'MY WORK',
+                style: TextStyle(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                  fontSize: 14,
                 ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'PROJECTS',
-              style: TextStyle(
-                fontFamily: 'ChelseaMarket',
-                fontSize: 80,
-                color: Colors.white,
-                letterSpacing: 0.5,
-                height: 1,
               ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          const Text(
+            'PROJECTS',
+            style: TextStyle(
+              fontSize: 90,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: 2,
+              height: 1,
             ),
-            const SizedBox(height: 60),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: isDesktop ? 2 : 1,
-                crossAxisSpacing: 30,
-                mainAxisSpacing: 30,
-                mainAxisExtent: isDesktop ? 550 : 600,
-              ),
-              itemCount: projects.length,
-              itemBuilder: (context, index) {
-                final project = projects[index];
-                return _buildModernProjectCard(context, project);
-              },
+          ),
+          const SizedBox(height: 100),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: isDesktop ? 2 : 1,
+              crossAxisSpacing: 35,
+              mainAxisSpacing: 35,
+              mainAxisExtent: isDesktop ? 600 : 650,
             ),
-          ],
-        ),
+            itemCount: projects.length,
+            itemBuilder: (context, index) {
+              final project = projects[index];
+              return _buildModernProjectCard(context, project);
+            },
+          ),
+        ],
       ),
     );
   }
@@ -92,72 +89,73 @@ class ProjectsPage extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.02),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        color: Colors.white.withValues(alpha: 0.02),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05), width: 1),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Project Image Placeholder
+          // Project Image Placeholder with stylized icon
           Container(
-            height: 250,
+            height: 280,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.03),
+              color: Colors.white.withValues(alpha: 0.03),
               borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
             ),
             child: Center(
               child: Icon(
-                Icons.code,
-                size: 60,
-                color: theme.colorScheme.primary.withOpacity(0.2),
+                Icons.code_rounded,
+                size: 80,
+                color: theme.colorScheme.primary.withValues(alpha: 0.1),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.all(40.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   project['title'],
                   style: const TextStyle(
-                    fontFamily: 'ChelseaMarket',
-                    fontSize: 32,
+                    fontSize: 36,
+                    fontWeight: FontWeight.w900,
                     color: Colors.white,
-                    letterSpacing: 0.5,
+                    letterSpacing: 1.5,
                   ),
                 ),
+                const SizedBox(height: 5),
                 Text(
                   project['sub'],
                   style: TextStyle(
                     color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 13,
                     letterSpacing: 1,
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 25),
                 Text(
                   project['description'],
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.6),
-                    height: 1.6,
-                    fontSize: 14,
+                    color: Colors.white.withValues(alpha: 0.4),
+                    height: 1.8,
+                    fontSize: 15,
                   ),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 35),
                 Wrap(
-                  spacing: 10,
-                  runSpacing: 10,
+                  spacing: 12,
+                  runSpacing: 12,
                   children: (project['tags'] as List<String>).map((tag) {
                     return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white.withOpacity(0.1)),
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.1), width: 1),
                         borderRadius: BorderRadius.circular(2),
                       ),
                       child: Text(
@@ -165,7 +163,8 @@ class ProjectsPage extends StatelessWidget {
                         style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 10,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 0.5,
                         ),
                       ),
                     );
