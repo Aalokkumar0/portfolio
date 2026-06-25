@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../layouts/responsive_layout.dart';
 
 class BeyondCodePage extends StatelessWidget {
@@ -28,19 +27,20 @@ class BeyondCodePage extends StatelessWidget {
                   style: TextStyle(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
+                    letterSpacing: 0.5,
                     fontSize: 14,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            Text(
+            const Text(
               'BEYOND CODE',
-              style: GoogleFonts.bebasNeue(
+              style: TextStyle(
+                fontFamily: 'ChelseaMarket',
                 fontSize: 80,
                 color: Colors.white,
-                letterSpacing: 2,
+                letterSpacing: 0.5,
                 height: 1,
               ),
             ),
@@ -93,10 +93,11 @@ class BeyondCodePage extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: GoogleFonts.bebasNeue(
+                  style: const TextStyle(
+                    fontFamily: 'ChelseaMarket',
                     fontSize: 32,
                     color: Colors.white,
-                    letterSpacing: 1.5,
+                    letterSpacing: 0.5,
                   ),
                 ),
                 const SizedBox(height: 15),

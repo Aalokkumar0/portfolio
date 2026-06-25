@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../layouts/responsive_layout.dart';
 
 class ContactPage extends StatelessWidget {
@@ -28,19 +27,20 @@ class ContactPage extends StatelessWidget {
                   style: TextStyle(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
+                    letterSpacing: 0.5,
                     fontSize: 14,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            Text(
+            const Text(
               'CONTACT',
-              style: GoogleFonts.bebasNeue(
+              style: TextStyle(
+                fontFamily: 'ChelseaMarket',
                 fontSize: 80,
                 color: Colors.white,
-                letterSpacing: 2,
+                letterSpacing: 0.5,
                 height: 1,
               ),
             ),
@@ -75,7 +75,8 @@ class ContactPage extends StatelessWidget {
       children: [
         Text(
           'LET\'S TALK ABOUT\nYOUR NEXT PROJECT.',
-          style: GoogleFonts.bebasNeue(
+          style: TextStyle(
+            fontFamily: 'ChelseaMarket',
             fontSize: 48,
             color: Colors.white,
             height: 1.1,

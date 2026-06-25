@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../layouts/responsive_layout.dart';
 
 class SkillsPage extends StatelessWidget {
@@ -28,19 +27,20 @@ class SkillsPage extends StatelessWidget {
                   style: TextStyle(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
+                    letterSpacing: 0.5,
                     fontSize: 14,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            Text(
+            const Text(
               'TECHNICAL SKILLS',
-              style: GoogleFonts.bebasNeue(
+              style: TextStyle(
+                fontFamily: 'ChelseaMarket',
                 fontSize: 80,
                 color: Colors.white,
-                letterSpacing: 2,
+                letterSpacing: 0.5,
                 height: 1,
               ),
             ),
@@ -83,10 +83,11 @@ class SkillsPage extends StatelessWidget {
           const Spacer(),
           Text(
             title,
-            style: GoogleFonts.bebasNeue(
+            style: const TextStyle(
+              fontFamily: 'ChelseaMarket',
               fontSize: 28,
               color: Colors.white,
-              letterSpacing: 1.5,
+              letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 15),

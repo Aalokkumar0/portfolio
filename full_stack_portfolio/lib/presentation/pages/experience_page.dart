@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../layouts/responsive_layout.dart';
 
 class ExperiencePage extends StatelessWidget {
@@ -10,15 +9,14 @@ class ExperiencePage extends StatelessWidget {
     final theme = Theme.of(context);
     final isDesktop = ResponsiveLayout.isDesktop(context);
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: isDesktop ? 100 : 20,
-          vertical: 80,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: isDesktop ? 100 : 20,
+        vertical: 80,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
             Row(
               children: [
                 Container(width: 30, height: 2, color: theme.colorScheme.primary),
@@ -28,19 +26,20 @@ class ExperiencePage extends StatelessWidget {
                   style: TextStyle(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
+                    letterSpacing: 0.5,
                     fontSize: 14,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            Text(
+            const Text(
               'EXPERIENCE',
-              style: GoogleFonts.bebasNeue(
+              style: TextStyle(
+                fontFamily: 'ChelseaMarket',
                 fontSize: 80,
                 color: Colors.white,
-                letterSpacing: 2,
+                letterSpacing: 0.5,
                 height: 1,
               ),
             ),
@@ -104,10 +103,11 @@ class ExperiencePage extends StatelessWidget {
                   children: [
                     Text(
                       role.toUpperCase(),
-                      style: GoogleFonts.bebasNeue(
+                      style: const TextStyle(
+                        fontFamily: 'ChelseaMarket',
                         fontSize: 32,
                         color: Colors.white,
-                        letterSpacing: 1.5,
+                        letterSpacing: 0.5,
                       ),
                     ),
                     Text(
@@ -153,7 +153,8 @@ class ExperiencePage extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 role.toUpperCase(),
-                style: GoogleFonts.bebasNeue(
+                style: const TextStyle(
+                  fontFamily: 'ChelseaMarket',
                   fontSize: 28,
                   color: Colors.white,
                   letterSpacing: 1.2,

@@ -29,15 +29,18 @@ class ProjectCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Project Image Placeholder
-          AspectRatio(
-            aspectRatio: 16 / 9,
-            child: Container(
-              color: theme.colorScheme.primary.withOpacity(0.05),
-              child: Center(
-                child: Icon(
-                  Icons.image_outlined,
-                  size: 48,
-                  color: theme.colorScheme.primary.withOpacity(0.2),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 250),
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Container(
+                color: theme.colorScheme.primary.withOpacity(0.05),
+                child: Center(
+                  child: Icon(
+                    Icons.image_outlined,
+                    size: 48,
+                    color: theme.colorScheme.primary.withOpacity(0.2),
+                  ),
                 ),
               ),
             ),
@@ -47,10 +50,11 @@ class ProjectCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
                   children: tags
                       .map((tag) => Container(
-                            margin: const EdgeInsets.only(right: 8),
                             padding: const EdgeInsets.symmetric(
                               horizontal: 8,
                               vertical: 4,
@@ -76,6 +80,8 @@ class ProjectCard extends StatelessWidget {
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 8),
                 Text(
