@@ -93,6 +93,15 @@ class AboutPage extends StatelessWidget {
   Widget _buildSkillsSection(BuildContext context) {
     final isDesktop = ResponsiveLayout.isDesktop(context);
 
+    final skillData = [
+      _SkillItem('MOBILE', 'Flutter, Dart, Kotlin, Android SDK, Material Design', Icons.smartphone_rounded, AppTheme.lavender),
+      _SkillItem('BACKEND', 'Python, FastAPI, JWT Auth, SQLAlchemy, Microservices', Icons.dns_rounded, AppTheme.mintCyan),
+      _SkillItem('CLOUD & DB', 'PostgreSQL, Firebase, AWS S3, Google Cloud Platform', Icons.cloud_rounded, AppTheme.blushPink),
+      _SkillItem('GENERATIVE AI', 'Google AI Studio, OpenAI APIs, Prompt Engineering, LLM Integration', Icons.auto_awesome_rounded, AppTheme.lavender),
+      _SkillItem('STATE MGMT', 'GetX, Provider, Bloc', Icons.account_tree_rounded, AppTheme.mintCyan),
+      _SkillItem('ARCHITECTURE', 'MVC, MVP, MVVM, Clean Architecture, OOP, API Integration', Icons.architecture_rounded, AppTheme.blushPink),
+    ];
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -108,96 +117,108 @@ class AboutPage extends StatelessWidget {
       ),
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 24,
-        vertical: 100,
+        vertical: isDesktop ? 100 : 60,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionHeader(
             label: 'MY TOOLKIT',
-            title: 'TECHNICAL\nSKILLS',
+            title: 'TECHNICAL SKILLS',
             titleFontSize: 60,
           ),
-          const SizedBox(height: 64),
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: isDesktop ? 3 : 2,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-            childAspectRatio: isDesktop ? 1.4 : 1.3,
-            children: [
-              _buildSkillCard(context, 'MOBILE', 'Flutter, Dart, Kotlin, Android SDK, Material Design', Icons.smartphone_rounded, 0),
-              _buildSkillCard(context, 'BACKEND', 'Python, FastAPI, JWT Auth, SQLAlchemy, Microservices', Icons.dns_rounded, 1),
-              _buildSkillCard(context, 'CLOUD & DB', 'PostgreSQL, Firebase, AWS S3, Google Cloud Platform', Icons.cloud_rounded, 2),
-              _buildSkillCard(context, 'GENERATIVE AI', 'Google AI Studio, OpenAI APIs, Prompt Engineering, LLM Integration', Icons.auto_awesome_rounded, 3),
-              _buildSkillCard(context, 'STATE MGMT', 'GetX, Provider, Bloc', Icons.account_tree_rounded, 4),
-              _buildSkillCard(context, 'ARCHITECTURE', 'MVC, MVP, MVVM, Clean Architecture, OOP, API Integration', Icons.architecture_rounded, 5),
-            ],
-          ),
+          SizedBox(height: isDesktop ? 64 : 36),
+          if (isDesktop)
+            GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 3,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              childAspectRatio: 1.4,
+              children: skillData.asMap().entries.map((e) =>
+                _buildSkillCard(context, e.value, e.key)
+              ).toList(),
+            )
+          else
+            // Mobile: IntrinsicHeight row pairs — no overflow
+            Column(
+              children: [
+                for (var i = 0; i < skillData.length; i += 2) ...[
+                  AnimatedSection(
+                    delay: Duration(milliseconds: 80 * (i ~/ 2)),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Expanded(child: _buildSkillCard(context, skillData[i], i, animated: false)),
+                          const SizedBox(width: 12),
+                          if (i + 1 < skillData.length)
+                            Expanded(child: _buildSkillCard(context, skillData[i + 1], i + 1, animated: false))
+                          else
+                            const Expanded(child: SizedBox()),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (i + 2 < skillData.length) const SizedBox(height: 12),
+                ],
+              ],
+            ),
         ],
       ),
     );
   }
 
-  Widget _buildSkillCard(BuildContext context, String title, String skills, IconData icon, int index) {
-    const cardColors = [
-      AppTheme.lavender,
-      AppTheme.mintCyan,
-      AppTheme.blushPink,
-      AppTheme.lavender,
-      AppTheme.mintCyan,
-      AppTheme.blushPink,
-    ];
+  Widget _buildSkillCard(BuildContext context, _SkillItem item, int idx, {bool animated = true}) {
+    final isDesktop = ResponsiveLayout.isDesktop(context);
 
-    final color = cardColors[index];
-
-    return AnimatedSection(
-      delay: Duration(milliseconds: 100 * index),
-      child: GlassCard(
-        padding: const EdgeInsets.all(28),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                color: color.withValues(alpha: 0.15),
-                border: Border.all(
-                  color: color.withValues(alpha: 0.25),
-                  width: 1,
-                ),
+    final card = GlassCard(
+      padding: EdgeInsets.all(isDesktop ? 28 : 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: EdgeInsets.all(isDesktop ? 10 : 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              color: item.color.withValues(alpha: 0.15),
+              border: Border.all(
+                color: item.color.withValues(alpha: 0.25),
+                width: 1,
               ),
-              child: Icon(icon, color: color, size: 22),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: AppTheme.textPrimary,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 15,
-                    letterSpacing: 1,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  skills,
-                  style: const TextStyle(
-                    color: AppTheme.textSecondary,
-                    fontSize: 13,
-                    height: 1.6,
-                  ),
-                ),
-              ],
+            child: Icon(item.icon, color: item.color, size: isDesktop ? 22 : 18),
+          ),
+          SizedBox(height: isDesktop ? 16 : 10),
+          Text(
+            item.title,
+            style: TextStyle(
+              color: AppTheme.textPrimary,
+              fontWeight: FontWeight.w800,
+              fontSize: isDesktop ? 15 : 12,
+              letterSpacing: 0.5,
+              height: 1.2,
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: isDesktop ? 8 : 6),
+          Text(
+            item.skills,
+            style: TextStyle(
+              color: AppTheme.textSecondary,
+              fontSize: isDesktop ? 13 : 11,
+              height: 1.55,
+            ),
+          ),
+        ],
       ),
+    );
+
+    if (!animated) return card;
+    return AnimatedSection(
+      delay: Duration(milliseconds: 100 * idx),
+      child: card,
     );
   }
 
@@ -435,4 +456,15 @@ class AboutPage extends StatelessWidget {
       ],
     );
   }
+}
+
+// ──────────────────────────────────────────────────────────
+// Data class for skill cards
+// ──────────────────────────────────────────────────────────
+class _SkillItem {
+  final String title;
+  final String skills;
+  final IconData icon;
+  final Color color;
+  const _SkillItem(this.title, this.skills, this.icon, this.color);
 }
