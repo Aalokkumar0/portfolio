@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../../core/theme/app_theme.dart';
 import '../widgets/gradient_background.dart';
 
 class MobileScaffold extends StatelessWidget {
@@ -10,21 +11,16 @@ class MobileScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF020617).withValues(alpha: 0.8),
+        backgroundColor: Colors.white.withValues(alpha: 0.82),
         surfaceTintColor: Colors.transparent,
         title: GestureDetector(
           onTap: () => onSectionTap?.call('home'),
           child: ShaderMask(
-            shaderCallback: (bounds) => LinearGradient(
-              colors: [
-                theme.colorScheme.primary,
-                theme.colorScheme.secondary,
-              ],
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [AppTheme.lavender, AppTheme.blushPink],
             ).createShader(bounds),
             child: const Text(
               'AK.',
@@ -38,11 +34,22 @@ class MobileScaffold extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white.withValues(alpha: 0.7)),
+        iconTheme: const IconThemeData(color: AppTheme.lavender),
         flexibleSpace: ClipRRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
             child: Container(color: Colors.transparent),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(
+            height: 1,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [AppTheme.lavender, AppTheme.blushPink, AppTheme.mintCyan],
+              ),
+            ),
           ),
         ),
       ),
@@ -58,24 +65,22 @@ class _MobileDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Drawer(
-      backgroundColor: const Color(0xFF0A0F1E),
+      backgroundColor: AppTheme.scaffoldBg,
       child: Column(
         children: [
           // Gradient header
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(30, 80, 30, 40),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.fromLTRB(28, 80, 28, 36),
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  theme.colorScheme.primary.withValues(alpha: 0.15),
-                  theme.colorScheme.secondary.withValues(alpha: 0.1),
-                  const Color(0xFF0A0F1E),
+                  Color(0xFFEEDCFF),
+                  Color(0xFFFFDDF0),
+                  Color(0xFFE0F6FA),
                 ],
               ),
             ),
@@ -83,11 +88,8 @@ class _MobileDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ShaderMask(
-                  shaderCallback: (bounds) => LinearGradient(
-                    colors: [
-                      theme.colorScheme.primary,
-                      theme.colorScheme.secondary,
-                    ],
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [AppTheme.lavender, AppTheme.blushPink],
                   ).createShader(bounds),
                   child: const Text(
                     'AK.',
@@ -100,19 +102,19 @@ class _MobileDrawer extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(
+                const Text(
                   'Full Stack Developer',
                   style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.4),
+                    color: AppTheme.textSecondary,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    letterSpacing: 1,
+                    letterSpacing: 0.5,
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
           _DrawerTile(title: 'HOME', section: 'home', icon: Icons.home_rounded, onSectionTap: onSectionTap),
           _DrawerTile(title: 'ABOUT', section: 'about', icon: Icons.person_rounded, onSectionTap: onSectionTap),
           _DrawerTile(title: 'SKILLS', section: 'skills', icon: Icons.code_rounded, onSectionTap: onSectionTap),
@@ -122,19 +124,15 @@ class _MobileDrawer extends StatelessWidget {
           _DrawerTile(title: 'BLOGS', section: 'blogs', icon: Icons.article_rounded, onSectionTap: onSectionTap),
           _DrawerTile(title: 'CONTACT', section: 'contact', icon: Icons.mail_rounded, onSectionTap: onSectionTap),
           const Spacer(),
-          // Bottom accent
+          // Bottom gradient bar
           Padding(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(28),
             child: Container(
               height: 3,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2),
-                gradient: LinearGradient(
-                  colors: [
-                    theme.colorScheme.primary.withValues(alpha: 0.5),
-                    theme.colorScheme.secondary.withValues(alpha: 0.3),
-                    Colors.transparent,
-                  ],
+                gradient: const LinearGradient(
+                  colors: [AppTheme.lavender, AppTheme.blushPink, AppTheme.mintCyan],
                 ),
               ),
             ),
@@ -167,7 +165,6 @@ class _DrawerTileState extends State<_DrawerTile> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -175,23 +172,27 @@ class _DrawerTileState extends State<_DrawerTile> {
         duration: const Duration(milliseconds: 200),
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(14),
           color: _isHovered
-              ? theme.colorScheme.primary.withValues(alpha: 0.08)
+              ? AppTheme.lavender.withValues(alpha: 0.1)
               : Colors.transparent,
+          border: Border.all(
+            color: _isHovered
+                ? AppTheme.lavender.withValues(alpha: 0.25)
+                : Colors.transparent,
+            width: 1,
+          ),
         ),
         child: ListTile(
           leading: Icon(
             widget.icon,
-            color: _isHovered
-                ? theme.colorScheme.primary
-                : Colors.white.withValues(alpha: 0.4),
+            color: _isHovered ? AppTheme.lavender : AppTheme.textMuted,
             size: 22,
           ),
           title: Text(
             widget.title,
             style: TextStyle(
-              color: _isHovered ? Colors.white : Colors.white.withValues(alpha: 0.6),
+              color: _isHovered ? AppTheme.lavender : AppTheme.textSecondary,
               fontWeight: FontWeight.w700,
               letterSpacing: 1.5,
               fontSize: 12,

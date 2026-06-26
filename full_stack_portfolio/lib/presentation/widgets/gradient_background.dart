@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../../core/theme/app_theme.dart';
 
-/// Animated background with floating gradient orbs that drift slowly,
-/// creating a "living" ambient feel behind content.
+/// Animated background with soft floating cotton candy orbs.
 class GradientBackground extends StatefulWidget {
   final Widget child;
   const GradientBackground({super.key, required this.child});
@@ -20,7 +20,7 @@ class _GradientBackgroundState extends State<GradientBackground>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 20),
+      duration: const Duration(seconds: 18),
     )..repeat();
   }
 
@@ -34,12 +34,18 @@ class _GradientBackgroundState extends State<GradientBackground>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Animated gradient orbs
+        // Dreamy base gradient
+        Container(
+          decoration: const BoxDecoration(
+            gradient: AppTheme.heroGradient,
+          ),
+        ),
+        // Animated soft orbs
         AnimatedBuilder(
           animation: _controller,
           builder: (context, _) {
             return CustomPaint(
-              painter: _OrbPainter(_controller.value),
+              painter: _CandyOrbPainter(_controller.value),
               size: Size.infinite,
             );
           },
@@ -50,50 +56,58 @@ class _GradientBackgroundState extends State<GradientBackground>
   }
 }
 
-class _OrbPainter extends CustomPainter {
+class _CandyOrbPainter extends CustomPainter {
   final double progress;
-  _OrbPainter(this.progress);
+  _CandyOrbPainter(this.progress);
 
   @override
   void paint(Canvas canvas, Size size) {
     final orbs = [
       _Orb(
-        color: const Color(0xFF38BDF8),
-        baseX: 0.15,
-        baseY: 0.2,
-        radius: size.width * 0.25,
-        speed: 1.0,
-        opacity: 0.06,
-      ),
-      _Orb(
-        color: const Color(0xFF818CF8),
-        baseX: 0.75,
-        baseY: 0.15,
+        color: AppTheme.lavender,
+        baseX: 0.1,
+        baseY: 0.1,
         radius: size.width * 0.3,
-        speed: 0.7,
-        opacity: 0.05,
+        speed: 1.0,
+        opacity: 0.18,
       ),
       _Orb(
-        color: const Color(0xFFA78BFA),
-        baseX: 0.5,
-        baseY: 0.7,
+        color: AppTheme.blushPink,
+        baseX: 0.8,
+        baseY: 0.15,
         radius: size.width * 0.28,
-        speed: 0.5,
-        opacity: 0.04,
+        speed: 0.65,
+        opacity: 0.14,
       ),
       _Orb(
-        color: const Color(0xFF38BDF8),
-        baseX: 0.85,
-        baseY: 0.8,
-        radius: size.width * 0.2,
+        color: AppTheme.mintCyan,
+        baseX: 0.5,
+        baseY: 0.75,
+        radius: size.width * 0.32,
+        speed: 0.45,
+        opacity: 0.12,
+      ),
+      _Orb(
+        color: AppTheme.softPink,
+        baseX: 0.9,
+        baseY: 0.85,
+        radius: size.width * 0.22,
         speed: 0.8,
-        opacity: 0.05,
+        opacity: 0.15,
+      ),
+      _Orb(
+        color: AppTheme.lavender,
+        baseX: 0.3,
+        baseY: 0.6,
+        radius: size.width * 0.18,
+        speed: 1.2,
+        opacity: 0.10,
       ),
     ];
 
     for (final orb in orbs) {
-      final dx = sin(progress * 2 * pi * orb.speed) * size.width * 0.05;
-      final dy = cos(progress * 2 * pi * orb.speed * 0.7) * size.height * 0.04;
+      final dx = sin(progress * 2 * pi * orb.speed) * size.width * 0.04;
+      final dy = cos(progress * 2 * pi * orb.speed * 0.7) * size.height * 0.035;
 
       final center = Offset(
         size.width * orb.baseX + dx,
@@ -113,7 +127,8 @@ class _OrbPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_OrbPainter oldDelegate) => oldDelegate.progress != progress;
+  bool shouldRepaint(_CandyOrbPainter oldDelegate) =>
+      oldDelegate.progress != progress;
 }
 
 class _Orb {

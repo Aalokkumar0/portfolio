@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_theme.dart';
 import '../layouts/responsive_layout.dart';
 import '../widgets/section_header.dart';
 import '../widgets/animated_section.dart';
@@ -13,13 +14,13 @@ class ExperiencePage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 24,
-        vertical: 120,
+        vertical: 100,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionHeader(label: 'MY JOURNEY', title: 'EXPERIENCE'),
-          const SizedBox(height: 100),
+          const SizedBox(height: 80),
           AnimatedSection(
             child: _buildExperienceItem(
               context,
@@ -45,7 +46,6 @@ class ExperiencePage extends StatelessWidget {
     List<String> tags,
     int index,
   ) {
-    final theme = Theme.of(context);
     final isDesktop = ResponsiveLayout.isDesktop(context);
 
     return Column(
@@ -59,19 +59,16 @@ class ExperiencePage extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    width: 16,
-                    height: 16,
-                    decoration: BoxDecoration(
+                    width: 18,
+                    height: 18,
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: LinearGradient(
-                        colors: [
-                          theme.colorScheme.primary,
-                          theme.colorScheme.secondary,
-                        ],
+                        colors: [AppTheme.lavender, AppTheme.blushPink],
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: theme.colorScheme.primary.withValues(alpha: 0.4),
+                          color: AppTheme.lavender,
                           blurRadius: 12,
                         ),
                       ],
@@ -80,14 +77,11 @@ class ExperiencePage extends StatelessWidget {
                   Container(
                     width: 2,
                     height: 280,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [
-                          theme.colorScheme.primary.withValues(alpha: 0.3),
-                          Colors.transparent,
-                        ],
+                        colors: [AppTheme.lavender, Colors.transparent],
                       ),
                     ),
                   ),
@@ -101,61 +95,65 @@ class ExperiencePage extends StatelessWidget {
                   children: [
                     // Period badge
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                          colors: [
-                            theme.colorScheme.primary.withValues(alpha: 0.15),
-                            theme.colorScheme.secondary.withValues(alpha: 0.1),
-                          ],
+                        borderRadius: BorderRadius.circular(50),
+                        gradient: const LinearGradient(
+                          colors: [AppTheme.lavender, AppTheme.blushPink],
                         ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppTheme.lavender.withValues(alpha: 0.3),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
-                      child: Text(
-                        period,
+                      child: const Text(
+                        'FEB 2026 - MAY 2026',
                         style: TextStyle(
-                          color: theme.colorScheme.primary,
+                          color: Colors.white,
                           fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                          letterSpacing: 1,
+                          fontSize: 11,
+                          letterSpacing: 1.5,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 18),
+                    const SizedBox(height: 20),
                     Text(
                       role.toUpperCase(),
                       style: const TextStyle(
-                        fontSize: 36,
+                        fontSize: 34,
                         fontWeight: FontWeight.w900,
-                        color: Colors.white,
-                        letterSpacing: 1,
+                        color: AppTheme.textPrimary,
+                        letterSpacing: 0.5,
                         height: 1.1,
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Text(
-                      company,
+                    const Text(
+                      'MindMatrix.io',
                       style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.4),
+                        color: AppTheme.lavender,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
-                        letterSpacing: 0.5,
+                        letterSpacing: 0.3,
                       ),
                     ),
                     const SizedBox(height: 28),
                     Text(
                       description,
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.45),
+                      style: const TextStyle(
+                        color: AppTheme.textSecondary,
                         height: 1.8,
                         fontSize: 16,
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 28),
                     Wrap(
                       spacing: 10,
                       runSpacing: 10,
-                      children: tags.map((tag) => _buildTag(tag, theme)).toList(),
+                      children: tags.map((tag) => _buildTag(tag)).toList(),
                     ),
                   ],
                 ),
@@ -171,40 +169,28 @@ class ExperiencePage extends StatelessWidget {
                   Container(
                     width: 12,
                     height: 12,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: LinearGradient(
-                        colors: [
-                          theme.colorScheme.primary,
-                          theme.colorScheme.secondary,
-                        ],
+                        colors: [AppTheme.lavender, AppTheme.blushPink],
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: theme.colorScheme.primary.withValues(alpha: 0.3),
-                          blurRadius: 8,
-                        ),
-                      ],
                     ),
                   ),
                   const SizedBox(width: 12),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: LinearGradient(
-                        colors: [
-                          theme.colorScheme.primary.withValues(alpha: 0.15),
-                          theme.colorScheme.secondary.withValues(alpha: 0.1),
-                        ],
+                      borderRadius: BorderRadius.circular(50),
+                      gradient: const LinearGradient(
+                        colors: [AppTheme.lavender, AppTheme.blushPink],
                       ),
                     ),
-                    child: Text(
-                      period,
+                    child: const Text(
+                      'FEB 2026 - MAY 2026',
                       style: TextStyle(
-                        color: theme.colorScheme.primary,
+                        color: Colors.white,
                         fontWeight: FontWeight.w700,
-                        fontSize: 12,
+                        fontSize: 11,
                         letterSpacing: 1,
                       ),
                     ),
@@ -215,47 +201,47 @@ class ExperiencePage extends StatelessWidget {
               Text(
                 role.toUpperCase(),
                 style: const TextStyle(
-                  fontSize: 28,
+                  fontSize: 26,
                   fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  letterSpacing: 1,
+                  color: AppTheme.textPrimary,
+                  letterSpacing: 0.5,
                 ),
               ),
               const SizedBox(height: 8),
-              Text(
-                company,
+              const Text(
+                'MindMatrix.io',
                 style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.4),
+                  color: AppTheme.lavender,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 22),
               Text(
                 description,
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.45),
-                  height: 1.7,
+                style: const TextStyle(
+                  color: AppTheme.textSecondary,
+                  height: 1.75,
                   fontSize: 15,
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 22),
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: tags.map((tag) => _buildTag(tag, theme)).toList(),
+                children: tags.map((tag) => _buildTag(tag)).toList(),
               ),
             ],
           ),
         const SizedBox(height: 40),
-        // Gradient divider
         Container(
-          height: 1,
-          decoration: BoxDecoration(
+          height: 2,
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 Colors.transparent,
-                theme.colorScheme.primary.withValues(alpha: 0.15),
+                AppTheme.lavender,
+                AppTheme.blushPink,
                 Colors.transparent,
               ],
             ),
@@ -265,18 +251,21 @@ class ExperiencePage extends StatelessWidget {
     );
   }
 
-  Widget _buildTag(String tag, ThemeData theme) {
+  Widget _buildTag(String tag) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white.withValues(alpha: 0.03),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+        borderRadius: BorderRadius.circular(50),
+        color: AppTheme.lavender.withValues(alpha: 0.1),
+        border: Border.all(
+          color: AppTheme.lavender.withValues(alpha: 0.25),
+          width: 1,
+        ),
       ),
       child: Text(
         tag,
-        style: TextStyle(
-          color: Colors.white.withValues(alpha: 0.6),
+        style: const TextStyle(
+          color: AppTheme.lavender,
           fontSize: 11,
           fontWeight: FontWeight.w700,
           letterSpacing: 0.5,

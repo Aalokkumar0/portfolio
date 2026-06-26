@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_theme.dart';
 import '../layouts/responsive_layout.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/section_header.dart';
@@ -14,7 +15,7 @@ class SkillsPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 24,
-        vertical: 120,
+        vertical: 100,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,14 +24,14 @@ class SkillsPage extends StatelessWidget {
             label: 'WHAT I KNOW',
             title: 'TECHNICAL\nSKILLS',
           ),
-          const SizedBox(height: 100),
+          const SizedBox(height: 80),
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: isDesktop ? 3 : 1,
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
-            childAspectRatio: isDesktop ? 1.15 : 1.5,
+            childAspectRatio: isDesktop ? 1.1 : 1.5,
             children: [
               _buildSkillCategory(context, 'MOBILE', ['Flutter', 'Dart', 'Kotlin', 'Android SDK', 'Material Design'], Icons.smartphone_rounded, 0),
               _buildSkillCategory(context, 'BACKEND', ['Python', 'FastAPI', 'JWT Auth', 'SQLAlchemy', 'Microservices'], Icons.dns_rounded, 1),
@@ -46,21 +47,20 @@ class SkillsPage extends StatelessWidget {
   }
 
   Widget _buildSkillCategory(BuildContext context, String title, List<String> skills, IconData icon, int index) {
-    final theme = Theme.of(context);
-    final colors = [
-      theme.colorScheme.primary,
-      theme.colorScheme.secondary,
-      theme.colorScheme.tertiary,
-      theme.colorScheme.primary,
-      theme.colorScheme.secondary,
-      theme.colorScheme.tertiary,
+    const cardColors = [
+      AppTheme.lavender,
+      AppTheme.mintCyan,
+      AppTheme.blushPink,
+      AppTheme.lavender,
+      AppTheme.mintCyan,
+      AppTheme.blushPink,
     ];
-    final accentColor = colors[index];
+    final accentColor = cardColors[index];
 
     return AnimatedSection(
       delay: Duration(milliseconds: 100 * index),
       child: GlassCard(
-        padding: const EdgeInsets.all(36),
+        padding: const EdgeInsets.all(32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,10 +68,14 @@ class SkillsPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                color: accentColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(16),
+                color: accentColor.withValues(alpha: 0.15),
+                border: Border.all(
+                  color: accentColor.withValues(alpha: 0.25),
+                  width: 1,
+                ),
               ),
-              child: Icon(icon, color: accentColor, size: 28),
+              child: Icon(icon, color: accentColor, size: 26),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,13 +83,13 @@ class SkillsPage extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                    letterSpacing: 1.5,
+                    color: AppTheme.textPrimary,
+                    letterSpacing: 1,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 14),
                 // Modern pill chips
                 Wrap(
                   spacing: 8,
@@ -93,18 +97,19 @@ class SkillsPage extends StatelessWidget {
                   children: skills.map((skill) => Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white.withValues(alpha: 0.04),
+                      borderRadius: BorderRadius.circular(50),
+                      color: accentColor.withValues(alpha: 0.1),
                       border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.08),
+                        color: accentColor.withValues(alpha: 0.2),
+                        width: 1,
                       ),
                     ),
                     child: Text(
                       skill,
                       style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.5),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
+                        color: accentColor,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
                         letterSpacing: 0.3,
                       ),
                     ),

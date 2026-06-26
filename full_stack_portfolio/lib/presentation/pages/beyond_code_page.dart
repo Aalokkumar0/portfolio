@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_theme.dart';
 import '../layouts/responsive_layout.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/section_header.dart';
@@ -14,7 +15,7 @@ class BeyondCodePage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 24,
-        vertical: 120,
+        vertical: 100,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -24,7 +25,7 @@ class BeyondCodePage extends StatelessWidget {
             label: 'LIFE OUTSIDE WORK',
             title: 'BEYOND\nCODE',
           ),
-          const SizedBox(height: 100),
+          const SizedBox(height: 80),
           AnimatedSection(
             child: _buildInterestItem(
               context,
@@ -36,7 +37,7 @@ class BeyondCodePage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           AnimatedSection(
-            delay: const Duration(milliseconds: 200),
+            delay: const Duration(milliseconds: 150),
             child: _buildInterestItem(
               context,
               'CONTINUOUS LEARNING',
@@ -47,7 +48,7 @@ class BeyondCodePage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           AnimatedSection(
-            delay: const Duration(milliseconds: 400),
+            delay: const Duration(milliseconds: 300),
             child: _buildInterestItem(
               context,
               'CYCLING & FITNESS',
@@ -62,35 +63,34 @@ class BeyondCodePage extends StatelessWidget {
   }
 
   Widget _buildInterestItem(BuildContext context, String title, String description, IconData icon, int index) {
-    final theme = Theme.of(context);
-    final colors = [
-      theme.colorScheme.primary,
-      theme.colorScheme.secondary,
-      theme.colorScheme.tertiary,
-    ];
-    final accentColor = colors[index];
+    const cardColors = [AppTheme.lavender, AppTheme.mintCyan, AppTheme.blushPink];
+    final accentColor = cardColors[index];
 
     return GlassCard(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.all(36),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  accentColor.withValues(alpha: 0.15),
-                  accentColor.withValues(alpha: 0.05),
-                ],
+              borderRadius: BorderRadius.circular(18),
+              color: accentColor.withValues(alpha: 0.12),
+              border: Border.all(
+                color: accentColor.withValues(alpha: 0.25),
+                width: 1.5,
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withValues(alpha: 0.2),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
-            child: Icon(icon, color: accentColor, size: 32),
+            child: Icon(icon, color: accentColor, size: 30),
           ),
-          const SizedBox(width: 32),
+          const SizedBox(width: 28),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,17 +98,17 @@ class BeyondCodePage extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                    letterSpacing: 1,
+                    color: AppTheme.textPrimary,
+                    letterSpacing: 0.5,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 14),
                 Text(
                   description,
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.45),
+                  style: const TextStyle(
+                    color: AppTheme.textSecondary,
                     height: 1.8,
                     fontSize: 15,
                   ),

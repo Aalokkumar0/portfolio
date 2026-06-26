@@ -1,9 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../../core/theme/app_theme.dart';
 
-/// A glassmorphism card with optional hover effects.
-/// Features: frosted glass background, gradient border on hover,
-/// subtle lift animation.
+/// A soft glassmorphism card with pastel cotton candy hover effects.
 class GlassCard extends StatefulWidget {
   final Widget child;
   final EdgeInsets padding;
@@ -14,8 +13,8 @@ class GlassCard extends StatefulWidget {
   const GlassCard({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(40),
-    this.borderRadius = 16,
+    this.padding = const EdgeInsets.all(36),
+    this.borderRadius = 24,
     this.enableHover = true,
     this.onTap,
   });
@@ -34,7 +33,7 @@ class _GlassCardState extends State<GlassCard>
     super.initState();
     _hoverController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 350),
     );
     _hoverAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _hoverController, curve: Curves.easeOutCubic),
@@ -58,9 +57,9 @@ class _GlassCardState extends State<GlassCard>
         child: AnimatedBuilder(
           animation: _hoverAnimation,
           builder: (context, child) {
-            final hoverValue = _hoverAnimation.value;
+            final h = _hoverAnimation.value;
             return Transform.translate(
-              offset: Offset(0, -4 * hoverValue),
+              offset: Offset(0, -6 * h),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(widget.borderRadius),
@@ -68,23 +67,32 @@ class _GlassCardState extends State<GlassCard>
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Colors.white.withValues(alpha: 0.03 + 0.03 * hoverValue),
-                      Colors.white.withValues(alpha: 0.01 + 0.02 * hoverValue),
+                      Colors.white.withValues(alpha: 0.85 + 0.12 * h),
+                      AppTheme.lavender.withValues(alpha: 0.05 + 0.07 * h),
                     ],
                   ),
                   border: Border.all(
                     color: Color.lerp(
-                      Colors.white.withValues(alpha: 0.06),
-                      const Color(0xFF38BDF8).withValues(alpha: 0.3),
-                      hoverValue,
+                      const Color(0xFFEEDCFF),
+                      AppTheme.lavender,
+                      h * 0.6,
                     )!,
-                    width: 1,
+                    width: 1.5,
                   ),
                   boxShadow: [
+                    // Soft pastel outer glow
                     BoxShadow(
-                      color: const Color(0xFF38BDF8).withValues(alpha: 0.05 * hoverValue),
-                      blurRadius: 30 * hoverValue,
-                      offset: Offset(0, 10 * hoverValue),
+                      color: AppTheme.lavender.withValues(alpha: 0.12 + 0.18 * h),
+                      blurRadius: 20 + 20 * h,
+                      spreadRadius: -2,
+                      offset: Offset(0, 6 + 6 * h),
+                    ),
+                    // Inner white highlight
+                    BoxShadow(
+                      color: Colors.white.withValues(alpha: 0.7),
+                      blurRadius: 0,
+                      spreadRadius: 0,
+                      offset: const Offset(-2, -2),
                     ),
                   ],
                 ),
@@ -92,8 +100,8 @@ class _GlassCardState extends State<GlassCard>
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(
-                      sigmaX: 10 * hoverValue,
-                      sigmaY: 10 * hoverValue,
+                      sigmaX: 4 + 8 * h,
+                      sigmaY: 4 + 8 * h,
                     ),
                     child: Padding(
                       padding: widget.padding,

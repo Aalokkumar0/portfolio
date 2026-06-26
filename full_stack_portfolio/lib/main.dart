@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
       title: 'Aalok Kumar — Full Stack Developer',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.dark,
+      darkTheme: AppTheme.lightTheme,
+      themeMode: ThemeMode.light,
       routerConfig: appRouter,
     );
   }

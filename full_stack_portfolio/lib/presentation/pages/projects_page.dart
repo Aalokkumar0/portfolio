@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_theme.dart';
 import '../layouts/responsive_layout.dart';
 import '../widgets/section_header.dart';
 import '../widgets/animated_section.dart';
@@ -14,9 +15,9 @@ class ProjectsPage extends StatelessWidget {
       {
         'title': 'PARISARA CYCLE',
         'sub': 'Smart Cycling & Eco-Tracking Platform',
-        'description': 'Developed a smart cycling application using Kotlin and Google Maps API, featuring real-time GPS tracking, ride analytics, route visualization, and community-based hazard reporting with a clean Material Design interface.',
+        'description': 'Developed a smart cycling application using Kotlin and Google Maps API, featuring real-time GPS tracking, ride analytics, route visualization, and community-based hazard reporting.',
         'tags': ['KOTLIN', 'GOOGLE MAPS', 'MVVM'],
-        'gradient': [const Color(0xFF38BDF8), const Color(0xFF818CF8)],
+        'colors': [AppTheme.lavender, AppTheme.mintCyan],
         'icon': Icons.directions_bike_rounded,
         'github': 'https://github.com/Aalokkumar0/Parisara-Cycle/releases/tag/v1.0',
       },
@@ -25,7 +26,7 @@ class ProjectsPage extends StatelessWidget {
         'sub': 'User Profile Management Microservice',
         'description': 'Built a scalable user management API using FastAPI and PostgreSQL, implementing secure authentication, CRUD operations, Docker containerization, and cloud-integrated backend services.',
         'tags': ['FASTAPI', 'POSTGRESQL', 'DOCKER'],
-        'gradient': [const Color(0xFF818CF8), const Color(0xFFA78BFA)],
+        'colors': [AppTheme.blushPink, AppTheme.lavender],
         'icon': Icons.dns_rounded,
         'github': 'https://github.com/Aalokkumar0/devity-user-profile-server',
       },
@@ -34,7 +35,7 @@ class ProjectsPage extends StatelessWidget {
         'sub': 'Engineering Resource Management System',
         'description': 'Built a Flutter and Firebase-powered note-sharing platform with secure authentication, PDF management, real-time Firestore synchronization, and advanced search and admin features.',
         'tags': ['FLUTTER', 'FIREBASE', 'FIRESTORE'],
-        'gradient': [const Color(0xFFA78BFA), const Color(0xFF38BDF8)],
+        'colors': [AppTheme.mintCyan, AppTheme.blushPink],
         'icon': Icons.note_alt_rounded,
         'github': 'https://github.com/Aalokkumar0/EngiNotes',
       },
@@ -43,13 +44,13 @@ class ProjectsPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 24,
-        vertical: 120,
+        vertical: 100,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionHeader(label: 'MY WORK', title: 'PROJECTS'),
-          const SizedBox(height: 100),
+          const SizedBox(height: 80),
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -57,13 +58,13 @@ class ProjectsPage extends StatelessWidget {
               crossAxisCount: isDesktop ? 2 : 1,
               crossAxisSpacing: 24,
               mainAxisSpacing: 24,
-              mainAxisExtent: isDesktop ? 520 : 500,
+              mainAxisExtent: isDesktop ? 500 : 480,
             ),
             itemCount: projects.length,
             itemBuilder: (context, index) {
               final project = projects[index];
               return AnimatedSection(
-                delay: Duration(milliseconds: 150 * index),
+                delay: Duration(milliseconds: 120 * index),
                 child: _ProjectCard(project: project),
               );
             },
@@ -107,7 +108,9 @@ class _ProjectCardState extends State<_ProjectCard>
 
   @override
   Widget build(BuildContext context) {
-    final gradient = widget.project['gradient'] as List<Color>;
+    final colors = widget.project['colors'] as List<Color>;
+    final primaryColor = colors[0];
+    final secondaryColor = colors[1];
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -118,24 +121,29 @@ class _ProjectCardState extends State<_ProjectCard>
         builder: (context, child) {
           final hv = _hoverAnimation.value;
           return Transform.translate(
-            offset: Offset(0, -6 * hv),
+            offset: Offset(0, -7 * hv),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white.withValues(alpha: 0.02 + 0.02 * hv),
+                borderRadius: BorderRadius.circular(24),
+                color: Colors.white,
                 border: Border.all(
                   color: Color.lerp(
-                    Colors.white.withValues(alpha: 0.06),
-                    gradient[0].withValues(alpha: 0.3),
+                    primaryColor.withValues(alpha: 0.15),
+                    primaryColor.withValues(alpha: 0.5),
                     hv,
                   )!,
-                  width: 1,
+                  width: 1.5,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: gradient[0].withValues(alpha: 0.08 * hv),
-                    blurRadius: 40 * hv,
-                    offset: Offset(0, 15 * hv),
+                    color: primaryColor.withValues(alpha: 0.12 + 0.18 * hv),
+                    blurRadius: 20 + 20 * hv,
+                    offset: Offset(0, 8 + 8 * hv),
+                  ),
+                  BoxShadow(
+                    color: secondaryColor.withValues(alpha: 0.08 * hv),
+                    blurRadius: 30 * hv,
+                    offset: Offset(10 * hv, 20 * hv),
                   ),
                 ],
               ),
@@ -144,84 +152,93 @@ class _ProjectCardState extends State<_ProjectCard>
                 children: [
                   // Gradient header with icon
                   Container(
-                    height: 200,
+                    height: 180,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(20)),
+                          top: Radius.circular(24)),
                       gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          gradient[0].withValues(alpha: 0.08 + 0.06 * hv),
-                          gradient[1].withValues(alpha: 0.04 + 0.04 * hv),
+                          primaryColor.withValues(alpha: 0.12 + 0.08 * hv),
+                          secondaryColor.withValues(alpha: 0.08 + 0.05 * hv),
                         ],
                       ),
                     ),
                     child: Center(
-                      child: Icon(
-                        widget.project['icon'] as IconData,
-                        size: 64,
-                        color: gradient[0].withValues(alpha: 0.2 + 0.2 * hv),
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withValues(alpha: 0.7),
+                          border: Border.all(
+                            color: primaryColor.withValues(alpha: 0.25),
+                            width: 1.5,
+                          ),
+                        ),
+                        child: Icon(
+                          widget.project['icon'] as IconData,
+                          size: 44,
+                          color: primaryColor,
+                        ),
                       ),
                     ),
                   ),
                   // Content
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: const EdgeInsets.all(28),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             widget.project['title'],
                             style: const TextStyle(
-                              fontSize: 28,
+                              fontSize: 24,
                               fontWeight: FontWeight.w900,
-                              color: Colors.white,
-                              letterSpacing: 1,
+                              color: AppTheme.textPrimary,
+                              letterSpacing: 0.5,
                             ),
                           ),
                           const SizedBox(height: 6),
                           Text(
                             widget.project['sub'],
                             style: TextStyle(
-                              color: gradient[0],
+                              color: primaryColor,
                               fontWeight: FontWeight.w700,
                               fontSize: 12,
-                              letterSpacing: 1,
+                              letterSpacing: 0.5,
                             ),
                           ),
-                          const SizedBox(height: 18),
+                          const SizedBox(height: 14),
                           Text(
                             widget.project['description'],
-                            style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.4),
+                            style: const TextStyle(
+                              color: AppTheme.textSecondary,
                               height: 1.7,
-                              fontSize: 14,
+                              fontSize: 13.5,
                             ),
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                           ),
                           const Spacer(),
-                          // GitHub link row
+                          // GitHub link
                           if (widget.project['github'] != null)
                             Padding(
-                              padding: const EdgeInsets.only(bottom: 14),
+                              padding: const EdgeInsets.only(bottom: 12),
                               child: Row(
                                 children: [
                                   Icon(Icons.link_rounded,
-                                      color: gradient[0].withValues(alpha: 0.6),
+                                      color: primaryColor.withValues(alpha: 0.7),
                                       size: 16),
                                   const SizedBox(width: 8),
-                                  Flexible(
-                                    child: Text(
-                                      'View on GitHub',
-                                      style: TextStyle(
-                                        color: gradient[0].withValues(alpha: 0.6),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                  Text(
+                                    'View on GitHub',
+                                    style: TextStyle(
+                                      color: primaryColor.withValues(alpha: 0.8),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                 ],
@@ -237,18 +254,17 @@ class _ProjectCardState extends State<_ProjectCard>
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 5),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white.withValues(alpha: 0.04),
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: primaryColor.withValues(alpha: 0.1),
                                   border: Border.all(
-                                    color:
-                                        Colors.white.withValues(alpha: 0.08),
+                                    color: primaryColor.withValues(alpha: 0.2),
+                                    width: 1,
                                   ),
                                 ),
                                 child: Text(
                                   tag,
                                   style: TextStyle(
-                                    color:
-                                        Colors.white.withValues(alpha: 0.5),
+                                    color: primaryColor,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w700,
                                     letterSpacing: 0.5,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/theme/app_theme.dart';
 import '../layouts/responsive_layout.dart';
 
 class BlogsPage extends StatelessWidget {
@@ -45,7 +46,7 @@ class BlogsPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFF020617),
+      backgroundColor: AppTheme.scaffoldBg,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -69,21 +70,18 @@ class BlogsPage extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    const Color(0xFF6366F1).withValues(alpha: 0.15),
-                                    const Color(0xFF818CF8).withValues(alpha: 0.1),
-                                  ],
+                                gradient: const LinearGradient(
+                                  colors: [AppTheme.lavender, AppTheme.blushPink],
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Icon(Icons.bolt_rounded, color: Color(0xFF6366F1), size: 22),
+                              child: const Icon(Icons.bolt_rounded, color: Colors.white, size: 22),
                             ),
                             const SizedBox(width: 12),
                             const Text(
                               'Devity',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppTheme.textPrimary,
                                 fontSize: 22,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: -0.5,
@@ -106,12 +104,12 @@ class BlogsPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white.withValues(alpha: 0.04),
                         ),
-                        child: const Icon(Icons.search_rounded, color: Colors.white54, size: 20),
+                        child: const Icon(Icons.search_rounded, color: AppTheme.lavender, size: 20),
                       ),
                     ] else
                       IconButton(
                         onPressed: () => context.go('/'),
-                        icon: const Icon(Icons.close_rounded, color: Colors.white54),
+                        icon: const Icon(Icons.close_rounded, color: AppTheme.lavender),
                       ),
                   ],
                 ),
@@ -166,7 +164,7 @@ class _HoverLinkState extends State<_HoverLink> {
         child: AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 200),
           style: TextStyle(
-            color: _isHovered ? Colors.white : Colors.white54,
+            color: _isHovered ? AppTheme.lavender : AppTheme.textSecondary,
             fontSize: 14,
             fontWeight: _isHovered ? FontWeight.w600 : FontWeight.w500,
           ),
@@ -243,12 +241,12 @@ class _BlogCardState extends State<_BlogCard>
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                const Color(0xFF6366F1).withValues(alpha: 0.2),
-                                const Color(0xFF38BDF8).withValues(alpha: 0.1),
+                                AppTheme.lavender.withValues(alpha: 0.2),
+                                AppTheme.mintCyan.withValues(alpha: 0.1),
                               ],
                             ),
                           ),
-                          child: const Icon(Icons.image, color: Colors.white24, size: 48),
+                          child: const Icon(Icons.image, color: AppTheme.lavender, size: 48),
                         ),
                       ),
                       // Gradient overlay at bottom
@@ -262,7 +260,7 @@ class _BlogCardState extends State<_BlogCard>
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: [Colors.transparent, Color(0xFF020617)],
+                              colors: [Colors.transparent, Color(0xFFFDF8FF)],
                             ),
                           ),
                         ),
@@ -277,32 +275,32 @@ class _BlogCardState extends State<_BlogCard>
                 children: [
                   CircleAvatar(
                     radius: 12,
-                    backgroundColor: const Color(0xFF6366F1).withValues(alpha: 0.2),
+                    backgroundColor: AppTheme.lavender.withValues(alpha: 0.18),
                     child: Text(
                       (widget.blog['author'] as String)[0],
                       style: const TextStyle(
-                        color: Color(0xFF6366F1),
+                        color: AppTheme.lavender,
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Text(
-                    widget.blog['author'],
-                    style: const TextStyle(
-                      color: Colors.white,
+                  const Text(
+                    'Abhishek Thakur',
+                    style: TextStyle(
+                      color: AppTheme.textPrimary,
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Text('•', style: TextStyle(color: Colors.white.withValues(alpha: 0.3))),
+                  const Text('•', style: TextStyle(color: AppTheme.textMuted)),
                   const SizedBox(width: 8),
                   Text(
                     widget.blog['date'],
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.3),
+                    style: const TextStyle(
+                      color: AppTheme.textMuted,
                       fontSize: 13,
                     ),
                   ),
@@ -315,7 +313,7 @@ class _BlogCardState extends State<_BlogCard>
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w800,
-                  color: Colors.white,
+                  color: AppTheme.textPrimary,
                   height: 1.3,
                   letterSpacing: -0.2,
                 ),
@@ -326,8 +324,8 @@ class _BlogCardState extends State<_BlogCard>
               // Excerpt
               Text(
                 widget.blog['excerpt'],
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.4),
+                style: const TextStyle(
+                  color: AppTheme.textSecondary,
                   height: 1.6,
                   fontSize: 13,
                 ),
@@ -340,13 +338,20 @@ class _BlogCardState extends State<_BlogCard>
                 spacing: 8,
                 runSpacing: 6,
                 children: (widget.blog['tags'] as List<String>).take(4).map((tag) {
-                  return Text(
-                    tag,
-                    style: const TextStyle(
-                      color: Color(0xFF6366F1),
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.5,
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: AppTheme.lavender.withValues(alpha: 0.1),
+                    ),
+                    child: Text(
+                      tag,
+                      style: const TextStyle(
+                        color: AppTheme.lavender,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.5,
+                      ),
                     ),
                   );
                 }).toList(),

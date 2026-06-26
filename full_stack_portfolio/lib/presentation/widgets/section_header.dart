@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_theme.dart';
 import 'animated_section.dart';
 
-/// Reusable animated section header with the "gradient line + label + giant title" pattern.
-/// Reduces duplication across all section pages.
+/// Reusable animated section header with dreamy cotton candy styling.
 class SectionHeader extends StatelessWidget {
   final String label;
   final String title;
@@ -12,63 +12,57 @@ class SectionHeader extends StatelessWidget {
     super.key,
     required this.label,
     required this.title,
-    this.titleFontSize = 80,
+    this.titleFontSize = 72,
   });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return AnimatedSection(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              // Gradient accent line
-              Container(
-                width: 35,
-                height: 3,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(2),
-                  gradient: LinearGradient(
-                    colors: [
-                      theme.colorScheme.primary,
-                      theme.colorScheme.secondary,
-                    ],
-                  ),
-                ),
+          // Pill label
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              gradient: const LinearGradient(
+                colors: [AppTheme.lavender, AppTheme.blushPink],
               ),
-              const SizedBox(width: 15),
-              Text(
-                label,
-                style: TextStyle(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 2,
-                  fontSize: 13,
+              boxShadow: [
+                BoxShadow(
+                  color: AppTheme.lavender.withValues(alpha: 0.3),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
                 ),
+              ],
+            ),
+            child: Text(
+              label,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 2,
+                fontSize: 11,
               ),
-            ],
+            ),
           ),
           const SizedBox(height: 20),
+          // Giant title with gradient
           ShaderMask(
-            shaderCallback: (bounds) => LinearGradient(
-              colors: [
-                Colors.white,
-                Colors.white.withValues(alpha: 0.6),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [AppTheme.textPrimary, AppTheme.lavender],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ).createShader(bounds),
             child: Text(
               title,
               style: TextStyle(
                 fontSize: titleFontSize,
                 fontWeight: FontWeight.w900,
-                color: Colors.white,
-                letterSpacing: 2,
-                height: 1,
+                color: AppTheme.textPrimary,
+                letterSpacing: 1,
+                height: 1.05,
               ),
             ),
           ),
