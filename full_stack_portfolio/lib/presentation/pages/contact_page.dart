@@ -15,14 +15,14 @@ class ContactPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 24,
-        vertical: 100,
+        vertical: isDesktop ? 100 : 60,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionHeader(label: 'GET IN TOUCH', title: 'CONTACT'),
-          const SizedBox(height: 80),
+          SizedBox(height: isDesktop ? 80 : 48),
           if (isDesktop)
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,6 +61,7 @@ class ContactPage extends StatelessWidget {
   }
 
   Widget _buildContactInfo(BuildContext context) {
+    final isDesktop = ResponsiveLayout.isDesktop(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -70,10 +71,12 @@ class ContactPage extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ).createShader(bounds),
-          child: const Text(
-            'LET\'S TALK ABOUT\nYOUR NEXT PROJECT.',
+          child: Text(
+            isDesktop
+                ? 'LET\'S TALK ABOUT\nYOUR NEXT PROJECT.'
+                : 'LET\'S TALK ABOUT YOUR NEXT PROJECT.',
             style: TextStyle(
-              fontSize: 44,
+              fontSize: isDesktop ? 44 : 28,
               fontWeight: FontWeight.w900,
               color: AppTheme.textPrimary,
               height: 1.2,

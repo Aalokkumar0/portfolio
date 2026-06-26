@@ -44,13 +44,13 @@ class ProjectsPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 24,
-        vertical: 100,
+        vertical: isDesktop ? 100 : 60,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionHeader(label: 'MY WORK', title: 'PROJECTS'),
-          const SizedBox(height: 80),
+          SizedBox(height: isDesktop ? 80 : 40),
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -195,7 +195,7 @@ class _ProjectCardState extends State<_ProjectCard>
                           Text(
                             widget.project['title'],
                             style: const TextStyle(
-                              fontSize: 24,
+                              fontSize: 20,
                               fontWeight: FontWeight.w900,
                               color: AppTheme.textPrimary,
                               letterSpacing: 0.5,

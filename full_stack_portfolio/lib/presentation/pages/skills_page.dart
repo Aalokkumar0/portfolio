@@ -15,23 +15,23 @@ class SkillsPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 24,
-        vertical: 100,
+        vertical: isDesktop ? 100 : 60,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionHeader(
             label: 'WHAT I KNOW',
-            title: 'TECHNICAL\nSKILLS',
+            title: 'TECHNICAL SKILLS',
           ),
-          const SizedBox(height: 80),
+          SizedBox(height: isDesktop ? 80 : 40),
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: isDesktop ? 3 : 1,
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20,
-            childAspectRatio: isDesktop ? 1.1 : 1.5,
+            crossAxisCount: isDesktop ? 3 : 2,
+            mainAxisSpacing: isDesktop ? 20 : 14,
+            crossAxisSpacing: isDesktop ? 20 : 14,
+            childAspectRatio: isDesktop ? 1.1 : 1.05,
             children: [
               _buildSkillCategory(context, 'MOBILE', ['Flutter', 'Dart', 'Kotlin', 'Android SDK', 'Material Design'], Icons.smartphone_rounded, 0),
               _buildSkillCategory(context, 'BACKEND', ['Python', 'FastAPI', 'JWT Auth', 'SQLAlchemy', 'Microservices'], Icons.dns_rounded, 1),

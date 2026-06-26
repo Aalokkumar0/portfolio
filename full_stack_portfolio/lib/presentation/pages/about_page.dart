@@ -18,7 +18,7 @@ class AboutPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: isDesktop ? 100 : 24,
-            vertical: 100,
+            vertical: isDesktop ? 100 : 60,
           ),
           child: isDesktop
               ? Row(
@@ -45,7 +45,7 @@ class AboutPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: isDesktop ? 100 : 24,
-            vertical: 100,
+            vertical: isDesktop ? 100 : 60,
           ),
           child: _buildExperienceTimeline(context),
         ),
@@ -56,6 +56,7 @@ class AboutPage extends StatelessWidget {
   }
 
   Widget _buildAboutIntro(BuildContext context) {
+    final isDesktop = ResponsiveLayout.isDesktop(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -63,13 +64,13 @@ class AboutPage extends StatelessWidget {
         const SizedBox(height: 40),
         AnimatedSection(
           delay: const Duration(milliseconds: 200),
-          child: const Text(
+          child: Text(
             'Aspiring Software Developer skilled in Flutter, Kotlin, FastAPI, PostgreSQL, Firebase, and Generative AI, building scalable mobile, backend, and AI-powered applications with a focus on performance and user experience.',
             style: TextStyle(
               color: AppTheme.textPrimary,
               height: 1.55,
               fontWeight: FontWeight.w500,
-              fontSize: 22,
+              fontSize: isDesktop ? 22 : 16,
             ),
           ),
         ),
@@ -121,10 +122,10 @@ class AboutPage extends StatelessWidget {
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: isDesktop ? 3 : 1,
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20,
-            childAspectRatio: isDesktop ? 1.4 : 1.8,
+            crossAxisCount: isDesktop ? 3 : 2,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            childAspectRatio: isDesktop ? 1.4 : 1.3,
             children: [
               _buildSkillCard(context, 'MOBILE', 'Flutter, Dart, Kotlin, Android SDK, Material Design', Icons.smartphone_rounded, 0),
               _buildSkillCard(context, 'BACKEND', 'Python, FastAPI, JWT Auth, SQLAlchemy, Microservices', Icons.dns_rounded, 1),
@@ -395,14 +396,19 @@ class AboutPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 18),
-              Text(
-                role.toUpperCase(),
-                style: const TextStyle(
-                  color: AppTheme.textPrimary,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 26,
-                  letterSpacing: 0.5,
-                ),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final isMobile = ResponsiveLayout.isMobile(context);
+                  return Text(
+                    role.toUpperCase(),
+                    style: TextStyle(
+                      color: AppTheme.textPrimary,
+                      fontWeight: FontWeight.w900,
+                      fontSize: isMobile ? 18 : 26,
+                      letterSpacing: 0.5,
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 8),
               Text(

@@ -31,20 +31,20 @@ class HomePage extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 24,
-        vertical: 100,
+        vertical: isDesktop ? 100 : 60,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionHeader(label: 'WHAT I DO', title: 'SERVICES', titleFontSize: 70),
-          const SizedBox(height: 64),
+          const SizedBox(height: 40),
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: isDesktop ? 3 : 1,
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20,
-            childAspectRatio: isDesktop ? 1.05 : 1.5,
+            mainAxisSpacing: isDesktop ? 20 : 16,
+            crossAxisSpacing: isDesktop ? 20 : 16,
+            childAspectRatio: isDesktop ? 1.05 : 1.4,
             children: [
               _buildServiceCard(
                 context,
@@ -153,7 +153,7 @@ class HomePage extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : 24,
-        vertical: 100,
+        vertical: isDesktop ? 100 : 60,
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
